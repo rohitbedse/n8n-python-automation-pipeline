@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-09-28T05:26:23.899780",
+  "steps": [
+    {
+      "name": "Mindler Career Library Scraper",
+      "success": false,
+      "message": "Source directory not found: D:\\Automation\\Mindler",
+      "required": true,
+      "output_file": "C:\\n8n-project\\scraper/output/mindler_career_library.json"
+    }
+  ],
+  "overall_success": false
+}

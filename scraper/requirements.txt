@@ -1,0 +1,16 @@
+# Combined requirements for n8n-project scraper
+# Install in your local Python environment (not Docker)
+
+# Core dependencies
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+
+# Mindler specific
+playwright>=1.40.0
+
+# SWAYAM specific
+# (only requests needed for scraper.py)
+# enrich.py needs playwright
+
+# For trigger server (already in stdlib)
+# http.server, json, threading, subprocess, pathlib, urllib.parse

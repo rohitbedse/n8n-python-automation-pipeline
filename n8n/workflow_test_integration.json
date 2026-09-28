@@ -1,0 +1,300 @@
+{
+  "name": "Test n8n + Python Integration",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "manual-trigger",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://host.docker.internal:8765/trigger",
+        "method": "POST",
+        "jsonParameters": true,
+        "options": {},
+        "bodyParametersJson": "{\n  \"script\": \"run_test_pipeline.py\",\n  \"force\": true\n}"
+      },
+      "id": "trigger-test-pipeline",
+      "name": "Trigger Test Pipeline",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [500, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://host.docker.internal:8765/health",
+        "method": "GET",
+        "options": {}
+      },
+      "id": "check-health",
+      "name": "Check Trigger Server Health",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [500, 100]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.status }}",
+              "operation": "equal",
+              "value2": "ok"
+            }
+          ]
+        }
+      },
+      "id": "health-check-if",
+      "name": "Server Healthy?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [750, 100]
+    },
+    {
+      "parameters": {
+        "amount": 5,
+        "unit": "seconds"
+      },
+      "id": "wait-5s",
+      "name": "Wait 5s",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [750, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://host.docker.internal:8765/health",
+        "method": "GET",
+        "options": {}
+      },
+      "id": "poll-completion",
+      "name": "Poll Test Completion",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [1000, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json.running }}",
+              "operation": "equal",
+              "value2": false
+            }
+          ]
+        }
+      },
+      "id": "test-done-if",
+      "name": "Test Done?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [1250, 300]
+    },
+    {
+      "parameters": {
+        "functionCode": "const fs = require('fs');\nconst path = require('path');\n\nconst outputDir = '/data/scraper/output';\nconst testFile = path.join(outputDir, 'test.json');\n\nconst exists = fs.existsSync(testFile);\nlet validJson = false;\nlet content = null;\n\nif (exists) {\n  try {\n    const raw = fs.readFileSync(testFile, 'utf8');\n    content = JSON.parse(raw);\n    validJson = true;\n  } catch (e) {\n    validJson = false;\n  }\n}\n\nreturn [{\n  json: {\n    testPassed: exists && validJson,\n    fileExists: exists,\n    validJson: validJson,\n    content: content,\n    timestamp: new Date().toISOString()\n  }\n}];"
+      },
+      "id": "verify-test-output",
+      "name": "Verify Test Output",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [1500, 200]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json.testPassed }}",
+              "operation": "equal",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "id": "test-validation-if",
+      "name": "Test Passed?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [1750, 200]
+    },
+    {
+      "parameters": {
+        "functionCode": "return [{\n  json: {\n    status: 'SUCCESS',\n    message: 'TEST PASSED: n8n -> Python -> Local file workflow works!',\n    testOutput: $json.content,\n    timestamp: new Date().toISOString()\n  }\n}];"
+      },
+      "id": "test-success",
+      "name": "Test Success",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [2000, 100]
+    },
+    {
+      "parameters": {
+        "functionCode": "return [{\n  json: {\n    status: 'FAILURE',\n    message: 'TEST FAILED: Output file missing or invalid.',\n    details: $json,\n    timestamp: new Date().toISOString()\n  }\n}];"
+      },
+      "id": "test-failure",
+      "name": "Test Failure",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [2000, 300]
+    },
+    {
+      "parameters": {
+        "functionCode": "return [{\n  json: {\n    status: 'ERROR',\n    message: 'Trigger server not healthy. Start trigger_server.py on Windows host.',\n    timestamp: new Date().toISOString()\n  }\n}];"
+      },
+      "id": "server-error",
+      "name": "Server Unhealthy",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [1000, 100]
+    },
+    {
+      "parameters": {
+        "functionCode": "return [{\n  json: {\n    status: 'ERROR',\n    message: 'Test pipeline trigger failed.',\n    response: $json,\n    timestamp: new Date().toISOString()\n  }\n}];"
+      },
+      "id": "trigger-error",
+      "name": "Trigger Failed",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [750, 450]
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Check Trigger Server Health",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Trigger Server Health": {
+      "main": [
+        [
+          {
+            "node": "Server Healthy?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Server Healthy?": {
+      "main": [
+        [
+          {
+            "node": "Trigger Test Pipeline",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Server Unhealthy",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Trigger Test Pipeline": {
+      "main": [
+        [
+          {
+            "node": "Wait 5s",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Trigger Failed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 5s": {
+      "main": [
+        [
+          {
+            "node": "Poll Test Completion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Poll Test Completion": {
+      "main": [
+        [
+          {
+            "node": "Test Done?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Test Done?": {
+      "main": [
+        [
+          {
+            "node": "Verify Test Output",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait 5s",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Verify Test Output": {
+      "main": [
+        [
+          {
+            "node": "Test Passed?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Test Passed?": {
+      "main": [
+        [
+          {
+            "node": "Test Success",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Test Failure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "id": "2"
+}
