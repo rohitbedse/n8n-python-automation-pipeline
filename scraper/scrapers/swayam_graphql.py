@@ -11,6 +11,7 @@ merged to approximate "all courses".
 
 import json
 import time
+from collections import Counter
 from typing import Any, Dict, List, Optional
 
 from .base import BaseScraper, ScraperConfig
@@ -104,7 +105,58 @@ class SwayamGraphQLScraper(BaseScraper):
                     time.sleep(self.config.delay_between_requests)
 
         self.logger.info(f"Total courses scraped: {len(all_courses)}")
+        
+        # Final summary
+        self._log_summary(all_courses)
+        
         return all_courses
+
+    def _log_summary(self, courses: List[Dict[str, Any]]) -> None:
+        """Log summary of courses by national coordinator and top institutes/providers."""
+        self.logger.info("=" * 60)
+        self.logger.info("SWAYAM SCRAPER SUMMARY")
+        self.logger.info("=" * 60)
+        
+        # Count by national coordinator
+        nc_counts = Counter(c.get("national_coordinator", "") for c in courses if c.get("national_coordinator"))
+        self.logger.info("Courses by National Coordinator:")
+        for coord, count in sorted(nc_counts.items(), key=lambda x: -x[1]):
+            self.logger.info(f"  {coord}: {count}")
+        
+        # Top institutes
+        institute_counts = Counter(c.get("institute", "") for c in courses if c.get("institute"))
+        self.logger.info("\nTop 15 Institutes:")
+        for inst, count in institute_counts.most_common(15):
+            self.logger.info(f"  {inst}: {count}")
+        
+        # Top providers
+        provider_counts = Counter(c.get("provider", "") for c in courses if c.get("provider"))
+        self.logger.info("\nTop 15 Providers:")
+        for prov, count in provider_counts.most_common(15):
+            self.logger.info(f"  {prov}: {count}")
+        
+        # Sample records for NPTEL and 2 other coordinators
+        self.logger.info("\nSample Records:")
+        for target_nc in ["NPTEL", "IGNOU", "AICTE"]:
+            samples = [c for c in courses if c.get("national_coordinator") == target_nc]
+            if samples:
+                s = samples[0]
+                self.logger.info(f"  {target_nc}: {s.get('course_name')} | Institute: {s.get('institute')} | Provider: {s.get('provider')}")
+        
+        self.logger.info("=" * 60)
+
+    def _build_provider(self, institute: str, national_coordinator: str) -> str:
+        """Build a clear provider string combining institute and national coordinator."""
+        institute = clean_text_safe(institute)
+        national_coordinator = clean_text_safe(national_coordinator)
+        
+        if institute and national_coordinator and institute != national_coordinator:
+            return f"{institute} ({national_coordinator})"
+        elif institute:
+            return institute
+        elif national_coordinator:
+            return national_coordinator
+        return ""
 
     def _parse_course(self, node: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         course_id = node.get("id", "")
@@ -120,13 +172,17 @@ class SwayamGraphQLScraper(BaseScraper):
         tag_names = [t.get("name") for t in tags if isinstance(t, dict) and t.get("name")]
         enrollment = node.get("enrollment") or {}
 
+        national_coordinator = clean_text_safe(node.get("ncCode", ""))
+        institute = clean_text_safe(node.get("instructorInstitute", ""))
+        provider = self._build_provider(institute, national_coordinator)
+
         record = {
             "course_id": str(course_id),
             "course_name": course_name,
             "course_url": course_url,
-            "national_coordinator": clean_text_safe(node.get("ncCode", "")),
-            "institute": clean_text_safe(node.get("instructorInstitute", "")),
-            "provider": clean_text_safe(node.get("instructorInstitute", "")),
+            "national_coordinator": national_coordinator,
+            "institute": institute,
+            "provider": provider,
             "description": clean_text_safe(node.get("explorerSummary", "")),
             "course_type": clean_text_safe(node.get("nodeCode", "")),
             "category": clean_text_safe(", ".join(category_names)),

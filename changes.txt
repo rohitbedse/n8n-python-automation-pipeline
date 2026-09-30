@@ -1,0 +1,81 @@
+CHANGES MADE - 2026-09-30
+==========================
+
+Problem: `python -m scraper.run_pipeline_new` was producing empty output files
+(scraper/output/mindler_career_library.json and swayam_courses.json were just "[]").
+
+Root cause: The scraper implementations for both sites (scraper/scrapers/mindler_api.py
+and scraper/scrapers/swayam_graphql.py) were built against API contracts that did not
+match the real, live services (wrong field names, wrong request method/shape, and for
+Swayam an endpoint that plain didn't exist). Because of this, scrape() returned 0
+records every run, and the pipeline correctly refused to overwrite existing output with
+nothing, so the files stayed empty forever.
+
+------------------------------------------------------------
+File 1: scraper/scrapers/mindler_api.py
+------------------------------------------------------------
+- Fixed scrape() to read the career domain list correctly. The real API returns
+  Elasticsearch-style documents where the actual fields live under "_source"
+  (e.g. domain["_source"]["career_domain_name"], domain["_source"]["tagline"]),
+  not flat fields like "careerDomainName" as the old code assumed. The old code
+  always got an empty domain name and silently skipped every domain via `continue`.
+- Fixed the domain-details request: it must be a POST to careerDomainDetails with a
+  JSON body {"tagline": <tagline>}, not a GET with a "careerDomainName" query param
+  (that endpoint/shape returned 404).
+- Fixed _parse_domain_detail() to read the real response shape:
+  data[0]["_source"] containing fields like career_name, career_entrance,
+  career_colleges, career_abroad_colleges, careers_path, pros_cons,
+  career_opportunities, career_job_description, and the (typo'd in the real API)
+  field "eligliblity_status" -- instead of the previously assumed
+  careerDomainInfo / subCareers / entrance_exams / colleges_india etc.
+- Now skips records/domains flagged as drafts (isDraft == 1), matching site behavior.
+
+Result: mindler scraper now successfully returns 44 real career domain records.
+
+------------------------------------------------------------
+File 2: scraper/scrapers/swayam_graphql.py
+------------------------------------------------------------
+- The old code POSTed a hand-written GraphQL query to
+  https://swayam.gov.in/modules/gql/query with a fabricated schema (fields like
+  "courses", "name", "courseUrl", "careerRelevance") -- this endpoint/shape does not
+  exist and returned HTTP 404 every time.
+- Reverse-engineered the real API contract from the site's own frontend component
+  (course-explorer.html):
+    - It's a GET request to /modules/gql/query.
+    - The query is passed as a raw GraphQL string in a "q" query param, and filter/
+      pagination options are passed as a JSON-encoded object in an "esq" query param.
+    - The response body is prefixed with ")]}'" before the JSON (already handled by
+      the existing pipeline/http.py fetch helper).
+    - The real root field is "courseList" (not "courses"), with real node fields
+      like id, title, url, explorerSummary, instructorInstitute,
+      explorerInstructorName, category{name}, tags{name}, weeks, credits,
+      openForRegistration, enrollment{enrolled}, etc.
+    - The site only exposes two status buckets, "Upcoming" and "Ongoing" -- both are
+      now queried and merged (deduplicated by id) to approximate "all courses".
+    - Pagination uses a cursor (pageInfo.endCursor / hasNextPage), which is now
+      threaded through correctly between pages.
+- Rewrote _parse_course() to map the real node fields into the existing output
+  schema (course_id, course_name, course_url, institute, description, category,
+  duration, start_date, end_date, status, skills, instructors, etc.).
+
+Result: swayam scraper now successfully returns 2,226 real course records.
+
+------------------------------------------------------------
+Verification performed
+------------------------------------------------------------
+- Ran `python -m scraper.run_pipeline_new --sites mindler` -> SUCCESS, 44 new records.
+- Ran `python -m scraper.run_pipeline_new --sites swayam` -> SUCCESS, 2226 new records.
+- Ran the full `python -m scraper.run_pipeline_new` (both sites, as the user runs it)
+  -> SUCCESS, both sites returned real data.
+- Confirmed scraper/output/mindler_career_library.json and
+  scraper/output/swayam_courses.json now contain real, non-empty JSON data instead
+  of "[]".
+
+------------------------------------------------------------
+Note / not fixed (flagged only)
+------------------------------------------------------------
+- On every re-run, records are reported as "updated" instead of "unchanged" even when
+  nothing meaningfully changed. This looks like a pre-existing issue where the
+  change-classification step compares records before internal metadata fields
+  (_scraped_run_id, _scraped_at) are stripped out. This is unrelated to the empty-
+  output bug and was not changed -- flagging in case it should be looked at separately.
