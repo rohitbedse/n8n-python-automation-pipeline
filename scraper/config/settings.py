@@ -40,17 +40,7 @@ SITES_CONFIG = {
         "max_retries": 3,
         "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
     },
-    "careers360": {
-        "name": "Careers360",
-        "base_url": "https://www.careers360.com",
-        "output_file": OUTPUT_DIR / "careers360_data.json",
-        "failed_file": OUTPUT_DIR / "careers360_failed_records.json",
-        "delay_between_requests": 1.0,
-        "timeout": 30,
-        "max_retries": 3,
-        "max_pages_per_category": 5,
-        "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-    },
+
 }
 
 # Pipeline settings
@@ -63,12 +53,10 @@ PIPELINE_CONFIG = {
     "duplicate_check_fields": {
         "mindler": ["subject_id"],
         "swayam": ["course_id", "course_url"],
-        "careers360": ["id", "url"],
     },
     "required_fields": {
         "mindler": ["subject_id", "subject_title"],
         "swayam": ["course_id", "course_name", "course_url"],
-        "careers360": ["id", "title", "url"],
     },
 }
 

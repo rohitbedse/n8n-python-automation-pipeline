@@ -194,6 +194,10 @@ class BaseScraper(ABC):
             self.logger.info("Scraping data from source...")
             raw_records = self.scrape()
             self.logger.info(f"Scraped {len(raw_records)} raw records")
+            if not raw_records:
+                raise RuntimeError(
+                    "Scraper returned no records; existing output was not modified"
+                )
             
             # Step 2: Transform records
             self.logger.info("Transforming records...")
@@ -349,13 +353,10 @@ def create_scraper(site: str) -> BaseScraper:
     )
     
     if site == "mindler":
-        from .mindler import MindlerScraper
-        return MindlerScraper(config)
+        from .mindler_api import MindlerAPIScraper
+        return MindlerAPIScraper(config)
     elif site == "swayam":
-        from .swayam import SwayamScraper
-        return SwayamScraper(config)
-    elif site == "careers360":
-        from .careers360 import Careers360Scraper
-        return Careers360Scraper(config)
+        from .swayam_graphql import SwayamGraphQLScraper
+        return SwayamGraphQLScraper(config)
     else:
         raise ValueError(f"No scraper implementation for site: {site}")
