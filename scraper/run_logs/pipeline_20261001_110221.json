@@ -1,32 +1,45 @@
 {
-  "run_id": "pipeline_20260930_125316",
+  "run_id": "pipeline_20261001_110221",
   "site": "pipeline",
-  "start_time": "2026-09-30T12:53:16.354168",
-  "end_time": "2026-09-30T12:53:16.529571",
-  "duration_seconds": 0.175403,
-  "overall_success": false,
+  "start_time": "2026-10-01T11:02:21.052413",
+  "end_time": "2026-10-01T11:03:16.586933",
+  "duration_seconds": 55.53452,
+  "overall_success": true,
   "steps": [
     {
       "name": "scrape_mindler",
-      "success": false,
-      "message": "0 new, 0 updated, 0 unchanged, 0 failed",
-      "duration_seconds": 0.175403,
-      "records_processed": 0,
+      "success": true,
+      "message": "0 new, 44 updated, 0 unchanged, 0 failed",
+      "duration_seconds": 13.296562,
+      "records_processed": 44,
       "records_new": 0,
-      "records_updated": 0,
+      "records_updated": 44,
       "records_unchanged": 0,
       "records_failed": 0,
-      "error": "Scraper returned no records; existing output was not modified"
+      "error": null
+    },
+    {
+      "name": "scrape_swayam",
+      "success": true,
+      "message": "0 new, 2226 updated, 0 unchanged, 0 failed",
+      "duration_seconds": 40.222672,
+      "records_processed": 2226,
+      "records_new": 0,
+      "records_updated": 2226,
+      "records_unchanged": 0,
+      "records_failed": 0,
+      "error": null
     }
   ],
-  "total_records_processed": 0,
+  "total_records_processed": 2270,
   "total_new": 0,
-  "total_updated": 0,
+  "total_updated": 2270,
   "total_unchanged": 0,
   "total_failed": 0,
   "config_snapshot": {
     "sites": [
-      "mindler"
+      "mindler",
+      "swayam"
     ],
     "pipeline_config": {
       "max_concurrent_scrapers": 1,
@@ -81,10 +94,11 @@
     }
   },
   "metadata": {
-    "pipeline_duration_seconds": 0.176406,
+    "pipeline_duration_seconds": 55.53452,
     "sites_run": [
-      "mindler"
+      "mindler",
+      "swayam"
     ],
-    "overall_success": false
+    "overall_success": true
   }
 }

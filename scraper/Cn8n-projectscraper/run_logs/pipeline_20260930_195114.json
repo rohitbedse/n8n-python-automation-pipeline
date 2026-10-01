@@ -1,16 +1,16 @@
 {
-  "run_id": "pipeline_20260930_133649",
+  "run_id": "pipeline_20260930_195114",
   "site": "pipeline",
-  "start_time": "2026-09-30T13:36:49.867950",
-  "end_time": "2026-09-30T13:37:41.461614",
-  "duration_seconds": 51.593664,
+  "start_time": "2026-09-30T19:51:14.751013",
+  "end_time": "2026-09-30T19:52:07.437920",
+  "duration_seconds": 52.686907,
   "overall_success": true,
   "steps": [
     {
       "name": "scrape_mindler",
       "success": true,
       "message": "0 new, 44 updated, 0 unchanged, 0 failed",
-      "duration_seconds": 13.147802,
+      "duration_seconds": 15.789089,
       "records_processed": 44,
       "records_new": 0,
       "records_updated": 44,
@@ -22,7 +22,7 @@
       "name": "scrape_swayam",
       "success": true,
       "message": "0 new, 2226 updated, 0 unchanged, 0 failed",
-      "duration_seconds": 36.435086,
+      "duration_seconds": 34.897004,
       "records_processed": 2226,
       "records_new": 0,
       "records_updated": 2226,
@@ -94,7 +94,7 @@
     }
   },
   "metadata": {
-    "pipeline_duration_seconds": 51.593664,
+    "pipeline_duration_seconds": 52.687761,
     "sites_run": [
       "mindler",
       "swayam"

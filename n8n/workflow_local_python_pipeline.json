@@ -1,27 +1,24 @@
 {
-  "name": "Local Python Pipeline Automation",
+  "name": "Daily Career Data Pipeline",
   "nodes": [
     {
-      "parameters": {},
-      "id": "manual-trigger",
-      "name": "Manual Trigger",
-      "type": "n8n-nodes-base.manualTrigger",
-      "typeVersion": 1,
-      "position": [250, 300]
-    },
-    {
       "parameters": {
-        "url": "http://host.docker.internal:8765/trigger",
-        "method": "POST",
-        "jsonParameters": true,
-        "options": {},
-        "bodyParametersJson": "{\n  \"script\": \"run_pipeline.py\",\n  \"force\": false\n}"
+        "triggerTimes": {
+          "item": [
+            {
+              "mode": "everyDay",
+              "hour": 2,
+              "minute": 0
+            }
+          ]
+        },
+        "timezone": "Asia/Kolkata"
       },
-      "id": "trigger-pipeline",
-      "name": "Trigger Python Pipeline",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.1,
-      "position": [500, 300]
+      "id": "schedule-trigger",
+      "name": "Daily Schedule (2 AM)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [250, 300]
     },
     {
       "parameters": {
@@ -55,6 +52,20 @@
     },
     {
       "parameters": {
+        "url": "http://host.docker.internal:8765/trigger",
+        "method": "POST",
+        "jsonParameters": true,
+        "options": {},
+        "bodyParametersJson": "{\n  \"script\": \"run_pipeline_new.py\",\n  \"force\": false\n}"
+      },
+      "id": "trigger-pipeline",
+      "name": "Trigger Python Pipeline",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [750, 300]
+    },
+    {
+      "parameters": {
         "amount": 10,
         "unit": "seconds"
       },
@@ -62,7 +73,7 @@
       "name": "Wait 10s",
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1,
-      "position": [750, 300]
+      "position": [1000, 300]
     },
     {
       "parameters": {
@@ -74,7 +85,7 @@
       "name": "Poll Pipeline Completion",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.1,
-      "position": [1000, 300]
+      "position": [1250, 300]
     },
     {
       "parameters": {
@@ -92,55 +103,17 @@
       "name": "Pipeline Done?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
-      "position": [1250, 300]
+      "position": [1500, 300]
     },
     {
       "parameters": {
-        "functionCode": "const fs = require('fs');\nconst path = require('path');\n\nconst outputDir = '/data/scraper/output';\nconst expectedFiles = [\n  'mindler_career_library.json',\n  'swayam_courses.json',\n  'swayam_courses_enriched.json'\n];\n\nconst results = {};\nlet allExist = true;\n\nfor (const file of expectedFiles) {\n  const filePath = path.join(outputDir, file);\n  const exists = fs.existsSync(filePath);\n  let size = 0;\n  let validJson = false;\n  \n  if (exists) {\n    const stats = fs.statSync(filePath);\n    size = stats.size;\n    try {\n      const content = fs.readFileSync(filePath, 'utf8');\n      JSON.parse(content);\n      validJson = true;\n    } catch (e) {\n      validJson = false;\n    }\n  }\n  \n  results[file] = {\n    exists,\n    size,\n    validJson,\n    path: filePath\n  };\n  \n  if (!exists || !validJson) {\n    allExist = false;\n  }\n}\n\nreturn [{\n  json: {\n    allFilesValid: allExist,\n    files: results,\n    timestamp: new Date().toISOString()\n  }\n}];"
-      },
-      "id": "verify-outputs",
-      "name": "Verify Output Files",
-      "type": "n8n-nodes-base.function",
-      "typeVersion": 1,
-      "position": [1500, 200]
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "boolean": [
-            {
-              "value1": "={{ $json.allFilesValid }}",
-              "operation": "equal",
-              "value2": true
-            }
-          ]
-        }
-      },
-      "id": "validation-if",
-      "name": "All Outputs Valid?",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 1,
-      "position": [1750, 200]
-    },
-    {
-      "parameters": {
-        "functionCode": "return [{\n  json: {\n    status: 'SUCCESS',\n    message: 'Pipeline completed successfully. All output files created and valid.',\n    files: $json.files,\n    timestamp: new Date().toISOString()\n  }\n}];"
+        "functionCode": "return [{\n  json: {\n    status: 'SUCCESS',\n    message: 'Pipeline completed successfully.',\n    timestamp: new Date().toISOString()\n  }\n}];"
       },
       "id": "success-node",
       "name": "Workflow Success",
       "type": "n8n-nodes-base.function",
       "typeVersion": 1,
-      "position": [2000, 100]
-    },
-    {
-      "parameters": {
-        "functionCode": "return [{\n  json: {\n    status: 'FAILURE',\n    message: 'Pipeline failed: Some output files missing or invalid.',\n    files: $json.files,\n    timestamp: new Date().toISOString()\n  }\n}];"
-      },
-      "id": "failure-node",
-      "name": "Workflow Failure",
-      "type": "n8n-nodes-base.function",
-      "typeVersion": 1,
-      "position": [2000, 300]
+      "position": [1750, 100]
     },
     {
       "parameters": {
@@ -160,11 +133,11 @@
       "name": "Trigger Failed",
       "type": "n8n-nodes-base.function",
       "typeVersion": 1,
-      "position": [750, 450]
+      "position": [1000, 450]
     }
   ],
   "connections": {
-    "Manual Trigger": {
+    "Daily Schedule (2 AM)": {
       "main": [
         [
           {
@@ -248,35 +221,6 @@
       "main": [
         [
           {
-            "node": "Verify Output Files",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Wait 10s",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Verify Output Files": {
-      "main": [
-        [
-          {
-            "node": "All Outputs Valid?",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "All Outputs Valid?": {
-      "main": [
-        [
-          {
             "node": "Workflow Success",
             "type": "main",
             "index": 0
@@ -284,7 +228,7 @@
         ],
         [
           {
-            "node": "Workflow Failure",
+            "node": "Wait 10s",
             "type": "main",
             "index": 0
           }

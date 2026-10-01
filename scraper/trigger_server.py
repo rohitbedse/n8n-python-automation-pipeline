@@ -9,6 +9,7 @@ Run this on Windows host: python trigger_server.py
 n8n (in Docker) calls: http://host.docker.internal:8765/trigger
 """
 import json
+import os
 import subprocess
 import sys
 import threading
@@ -18,7 +19,7 @@ from pathlib import Path
 from urllib.parse import urlparse, parse_qs
 
 PROJECT_DIR = Path(r"C:\n8n-project\scraper")
-PIPELINE_SCRIPT = "run_pipeline.py"
+PIPELINE_SCRIPT = "run_pipeline_new.py"
 VENV_PYTHON = PROJECT_DIR / ".venv" / "Scripts" / "python.exe"
 HOST = "0.0.0.0"
 PORT = 8765
@@ -49,6 +50,11 @@ def run_pipeline(script_name=None):
     
     python_exe = get_python_exe()
     
+    # Set PYTHONPATH to project root so 'scraper' module can be imported
+    project_root = PROJECT_DIR.parent
+    env = os.environ.copy()
+    env["PYTHONPATH"] = str(project_root)
+    
     try:
         # Run with timeout (5 minutes max)
         result = subprocess.run(
@@ -58,7 +64,8 @@ def run_pipeline(script_name=None):
             text=True,
             timeout=300,
             encoding="utf-8",
-            errors="replace"
+            errors="replace",
+            env=env
         )
         success = result.returncode == 0
         output = result.stdout
@@ -77,14 +84,15 @@ class TriggerHandler(BaseHTTPRequestHandler):
     
     def do_GET(self):
         parsed = urlparse(self.path)
-        if parsed.path == "/health":
+        path = parsed.path.rstrip('/')
+        if path == "/health":
             self.send_response(200)
             self.send_header("Content-Type", "application/json")
             self.end_headers()
             self.wfile.write(json.dumps({"status": "ok", "running": is_running}).encode())
             return
         
-        if parsed.path == "/trigger":
+        if path == "/trigger":
             self.handle_trigger(parsed.query)
             return
         
@@ -172,7 +180,12 @@ class TriggerHandler(BaseHTTPRequestHandler):
         self.send_header("Content-Type", "application/json")
         self.send_header("Access-Control-Allow-Origin", "*")
         self.end_headers()
-        self.wfile.write(json.dumps(data).encode())
+        try:
+            self.wfile.write(json.dumps(data).encode())
+        except ConnectionAbortedError:
+            pass  # Client disconnected, ignore
+        except BrokenPipeError:
+            pass  # Client disconnected, ignore
 
 
 def main():
@@ -183,7 +196,7 @@ def main():
     print(f"\nEndpoints:")
     print(f"  GET  http://localhost:{PORT}/health  - Health check")
     print(f"  POST http://localhost:{PORT}/trigger - Trigger pipeline")
-    print(f"       Body: {{\"script\": \"run_pipeline.py\", \"force\": false}}")
+    print(f"       Body: {{\"script\": \"run_pipeline_new.py\", \"force\": false}}")
     print(f"\nFrom n8n (Docker) use: http://host.docker.internal:{PORT}/trigger")
     print("\nPress Ctrl+C to stop\n")
     

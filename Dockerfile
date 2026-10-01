@@ -6,4 +6,6 @@ RUN pip install --no-cache-dir requests beautifulsoup4 playwright
 
 RUN playwright install --with-deps chromium
 
-CMD ["python", "/data/scraper/run_pipeline.py"]
+ENV PYTHONPATH=/project
+
+CMD ["python", "/project/scraper/run_pipeline_new.py"]

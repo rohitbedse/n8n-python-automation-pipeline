@@ -1,903 +1,29 @@
 [
   {
-    "run_id": "pipeline_20260930_121130",
+    "run_id": "pipeline_20261001_011516",
     "site": "pipeline",
-    "start_time": "2026-09-30T12:11:30.283498",
-    "end_time": "2026-09-30T12:11:44.452189",
-    "duration_seconds": 14.168691,
+    "start_time": "2026-10-01T01:15:16.200269",
+    "end_time": "2026-10-01T01:16:02.304853",
+    "duration_seconds": 46.104584,
     "overall_success": true,
     "steps": [
       {
         "name": "scrape_mindler",
         "success": true,
-        "message": "0 new, 0 updated, 0 unchanged, 0 failed",
-        "duration_seconds": 0.604008,
-        "records_processed": 0,
-        "records_new": 0,
-        "records_updated": 0,
-        "records_unchanged": 0,
-        "records_failed": 0,
-        "error": null
-      },
-      {
-        "name": "scrape_swayam",
-        "success": true,
-        "message": "0 new, 0 updated, 0 unchanged, 0 failed",
-        "duration_seconds": 0.464527,
-        "records_processed": 0,
-        "records_new": 0,
-        "records_updated": 0,
-        "records_unchanged": 0,
-        "records_failed": 0,
-        "error": null
-      },
-      {
-        "name": "scrape_careers360",
-        "success": true,
-        "message": "0 new, 0 updated, 0 unchanged, 0 failed",
-        "duration_seconds": 9.084515,
-        "records_processed": 0,
-        "records_new": 0,
-        "records_updated": 0,
-        "records_unchanged": 0,
-        "records_failed": 0,
-        "error": null
-      }
-    ],
-    "total_records_processed": 0,
-    "total_new": 0,
-    "total_updated": 0,
-    "total_unchanged": 0,
-    "total_failed": 0,
-    "config_snapshot": {
-      "sites": [
-        "mindler",
-        "swayam",
-        "careers360"
-      ],
-      "pipeline_config": {
-        "max_concurrent_scrapers": 1,
-        "request_timeout": 30,
-        "default_max_retries": 3,
-        "retry_backoff_base": 2,
-        "retry_backoff_max": 60,
-        "duplicate_check_fields": {
-          "mindler": [
-            "subject_id"
-          ],
-          "swayam": [
-            "course_id",
-            "course_url"
-          ],
-          "careers360": [
-            "id",
-            "url"
-          ]
-        },
-        "required_fields": {
-          "mindler": [
-            "subject_id",
-            "subject_title"
-          ],
-          "swayam": [
-            "course_id",
-            "course_name",
-            "course_url"
-          ],
-          "careers360": [
-            "id",
-            "title",
-            "url"
-          ]
-        }
-      },
-      "sites_config": {
-        "mindler": {
-          "name": "Mindler Career Library",
-          "base_url": "https://careerlibrary.mindler.com",
-          "api_domain_list": "https://careerlibrary.mindler.com/api/careerlibrary/v1/careerDomainNameList",
-          "api_domain_details": "https://careerlibrary.mindler.com/api/careerlibrary/v1/careerDomainDetails",
-          "delay_between_requests": 0.3,
-          "timeout": 15,
-          "max_retries": 3,
-          "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
-          "referer": "https://www.mindler.com/"
-        },
-        "swayam": {
-          "name": "SWAYAM Courses",
-          "base_url": "https://swayam.gov.in",
-          "api_url": "https://swayam.gov.in/modules/gql/query",
-          "explorer_url": "https://swayam.gov.in/explorer",
-          "delay_between_requests": 0.5,
-          "warmup_wait_seconds": 4,
-          "timeout": 30,
-          "max_retries": 3,
-          "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
-        },
-        "careers360": {
-          "name": "Careers360",
-          "base_url": "https://www.careers360.com",
-          "delay_between_requests": 1.0,
-          "timeout": 30,
-          "max_retries": 3,
-          "max_pages_per_category": 5,
-          "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
-        }
-      }
-    },
-    "metadata": {
-      "pipeline_duration_seconds": 14.174462,
-      "sites_run": [
-        "mindler",
-        "swayam",
-        "careers360"
-      ],
-      "overall_success": true
-    }
-  },
-  {
-    "run_id": "pipeline_20260930_123011",
-    "site": "pipeline",
-    "start_time": "2026-09-30T12:30:11.980129",
-    "end_time": "2026-09-30T12:30:25.521734",
-    "duration_seconds": 13.541605,
-    "overall_success": false,
-    "steps": [
-      {
-        "name": "scrape_mindler",
-        "success": false,
-        "message": "0 new, 0 updated, 0 unchanged, 0 failed",
-        "duration_seconds": 0.191184,
-        "records_processed": 0,
-        "records_new": 0,
-        "records_updated": 0,
-        "records_unchanged": 0,
-        "records_failed": 0,
-        "error": "Scraper returned no records; existing output was not modified"
-      },
-      {
-        "name": "scrape_swayam",
-        "success": false,
-        "message": "0 new, 0 updated, 0 unchanged, 0 failed",
-        "duration_seconds": 0.254439,
-        "records_processed": 0,
-        "records_new": 0,
-        "records_updated": 0,
-        "records_unchanged": 0,
-        "records_failed": 0,
-        "error": "Scraper returned no records; existing output was not modified"
-      },
-      {
-        "name": "scrape_careers360",
-        "success": false,
-        "message": "0 new, 0 updated, 0 unchanged, 0 failed",
-        "duration_seconds": 9.08568,
-        "records_processed": 0,
-        "records_new": 0,
-        "records_updated": 0,
-        "records_unchanged": 0,
-        "records_failed": 0,
-        "error": "Scraper returned no records; existing output was not modified"
-      }
-    ],
-    "total_records_processed": 0,
-    "total_new": 0,
-    "total_updated": 0,
-    "total_unchanged": 0,
-    "total_failed": 0,
-    "config_snapshot": {
-      "sites": [
-        "mindler",
-        "swayam",
-        "careers360"
-      ],
-      "pipeline_config": {
-        "max_concurrent_scrapers": 1,
-        "request_timeout": 30,
-        "default_max_retries": 3,
-        "retry_backoff_base": 2,
-        "retry_backoff_max": 60,
-        "duplicate_check_fields": {
-          "mindler": [
-            "subject_id"
-          ],
-          "swayam": [
-            "course_id",
-            "course_url"
-          ],
-          "careers360": [
-            "id",
-            "url"
-          ]
-        },
-        "required_fields": {
-          "mindler": [
-            "subject_id",
-            "subject_title"
-          ],
-          "swayam": [
-            "course_id",
-            "course_name",
-            "course_url"
-          ],
-          "careers360": [
-            "id",
-            "title",
-            "url"
-          ]
-        }
-      },
-      "sites_config": {
-        "mindler": {
-          "name": "Mindler Career Library",
-          "base_url": "https://careerlibrary.mindler.com",
-          "api_domain_list": "https://careerlibrary.mindler.com/api/careerlibrary/v1/careerDomainNameList",
-          "api_domain_details": "https://careerlibrary.mindler.com/api/careerlibrary/v1/careerDomainDetails",
-          "delay_between_requests": 0.3,
-          "timeout": 15,
-          "max_retries": 3,
-          "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
-          "referer": "https://www.mindler.com/"
-        },
-        "swayam": {
-          "name": "SWAYAM Courses",
-          "base_url": "https://swayam.gov.in",
-          "api_url": "https://swayam.gov.in/modules/gql/query",
-          "explorer_url": "https://swayam.gov.in/explorer",
-          "delay_between_requests": 0.5,
-          "warmup_wait_seconds": 4,
-          "timeout": 30,
-          "max_retries": 3,
-          "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
-        },
-        "careers360": {
-          "name": "Careers360",
-          "base_url": "https://www.careers360.com",
-          "delay_between_requests": 1.0,
-          "timeout": 30,
-          "max_retries": 3,
-          "max_pages_per_category": 5,
-          "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
-        }
-      }
-    },
-    "metadata": {
-      "pipeline_duration_seconds": 13.555378,
-      "sites_run": [
-        "mindler",
-        "swayam",
-        "careers360"
-      ],
-      "overall_success": false
-    }
-  },
-  {
-    "run_id": "pipeline_20260930_123643",
-    "site": "pipeline",
-    "start_time": "2026-09-30T12:36:43.638817",
-    "end_time": "2026-09-30T12:36:46.054959",
-    "duration_seconds": 2.416142,
-    "overall_success": false,
-    "steps": [
-      {
-        "name": "scrape_mindler",
-        "success": false,
-        "message": "0 new, 0 updated, 0 unchanged, 0 failed",
-        "duration_seconds": 0.179879,
-        "records_processed": 0,
-        "records_new": 0,
-        "records_updated": 0,
-        "records_unchanged": 0,
-        "records_failed": 0,
-        "error": "Scraper returned no records; existing output was not modified"
-      },
-      {
-        "name": "scrape_swayam",
-        "success": false,
-        "message": "0 new, 0 updated, 0 unchanged, 0 failed",
-        "duration_seconds": 0.23288,
-        "records_processed": 0,
-        "records_new": 0,
-        "records_updated": 0,
-        "records_unchanged": 0,
-        "records_failed": 0,
-        "error": "Scraper returned no records; existing output was not modified"
-      }
-    ],
-    "total_records_processed": 0,
-    "total_new": 0,
-    "total_updated": 0,
-    "total_unchanged": 0,
-    "total_failed": 0,
-    "config_snapshot": {
-      "sites": [
-        "mindler",
-        "swayam"
-      ],
-      "pipeline_config": {
-        "max_concurrent_scrapers": 1,
-        "request_timeout": 30,
-        "default_max_retries": 3,
-        "retry_backoff_base": 2,
-        "retry_backoff_max": 60,
-        "duplicate_check_fields": {
-          "mindler": [
-            "subject_id"
-          ],
-          "swayam": [
-            "course_id",
-            "course_url"
-          ],
-          "careers360": [
-            "id",
-            "url"
-          ]
-        },
-        "required_fields": {
-          "mindler": [
-            "subject_id",
-            "subject_title"
-          ],
-          "swayam": [
-            "course_id",
-            "course_name",
-            "course_url"
-          ],
-          "careers360": [
-            "id",
-            "title",
-            "url"
-          ]
-        }
-      },
-      "sites_config": {
-        "mindler": {
-          "name": "Mindler Career Library",
-          "base_url": "https://careerlibrary.mindler.com",
-          "api_domain_list": "https://careerlibrary.mindler.com/api/careerlibrary/v1/careerDomainNameList",
-          "api_domain_details": "https://careerlibrary.mindler.com/api/careerlibrary/v1/careerDomainDetails",
-          "delay_between_requests": 0.3,
-          "timeout": 15,
-          "max_retries": 3,
-          "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
-          "referer": "https://www.mindler.com/"
-        },
-        "swayam": {
-          "name": "SWAYAM Courses",
-          "base_url": "https://swayam.gov.in",
-          "api_url": "https://swayam.gov.in/modules/gql/query",
-          "explorer_url": "https://swayam.gov.in/explorer",
-          "delay_between_requests": 0.5,
-          "warmup_wait_seconds": 4,
-          "timeout": 30,
-          "max_retries": 3,
-          "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
-        }
-      }
-    },
-    "metadata": {
-      "pipeline_duration_seconds": 2.417844,
-      "sites_run": [
-        "mindler",
-        "swayam"
-      ],
-      "overall_success": false
-    }
-  },
-  {
-    "run_id": "pipeline_20260930_124143",
-    "site": "pipeline",
-    "start_time": "2026-09-30T12:41:43.385107",
-    "end_time": "2026-09-30T12:41:45.931325",
-    "duration_seconds": 2.546218,
-    "overall_success": false,
-    "steps": [
-      {
-        "name": "scrape_mindler",
-        "success": false,
-        "message": "0 new, 0 updated, 0 unchanged, 0 failed",
-        "duration_seconds": 0.154716,
-        "records_processed": 0,
-        "records_new": 0,
-        "records_updated": 0,
-        "records_unchanged": 0,
-        "records_failed": 0,
-        "error": "Scraper returned no records; existing output was not modified"
-      },
-      {
-        "name": "scrape_swayam",
-        "success": false,
-        "message": "0 new, 0 updated, 0 unchanged, 0 failed",
-        "duration_seconds": 0.386278,
-        "records_processed": 0,
-        "records_new": 0,
-        "records_updated": 0,
-        "records_unchanged": 0,
-        "records_failed": 0,
-        "error": "Scraper returned no records; existing output was not modified"
-      }
-    ],
-    "total_records_processed": 0,
-    "total_new": 0,
-    "total_updated": 0,
-    "total_unchanged": 0,
-    "total_failed": 0,
-    "config_snapshot": {
-      "sites": [
-        "mindler",
-        "swayam"
-      ],
-      "pipeline_config": {
-        "max_concurrent_scrapers": 1,
-        "request_timeout": 30,
-        "default_max_retries": 3,
-        "retry_backoff_base": 2,
-        "retry_backoff_max": 60,
-        "duplicate_check_fields": {
-          "mindler": [
-            "subject_id"
-          ],
-          "swayam": [
-            "course_id",
-            "course_url"
-          ],
-          "careers360": [
-            "id",
-            "url"
-          ]
-        },
-        "required_fields": {
-          "mindler": [
-            "subject_id",
-            "subject_title"
-          ],
-          "swayam": [
-            "course_id",
-            "course_name",
-            "course_url"
-          ],
-          "careers360": [
-            "id",
-            "title",
-            "url"
-          ]
-        }
-      },
-      "sites_config": {
-        "mindler": {
-          "name": "Mindler Career Library",
-          "base_url": "https://careerlibrary.mindler.com",
-          "api_domain_list": "https://careerlibrary.mindler.com/api/careerlibrary/v1/careerDomainNameList",
-          "api_domain_details": "https://careerlibrary.mindler.com/api/careerlibrary/v1/careerDomainDetails",
-          "delay_between_requests": 0.3,
-          "timeout": 15,
-          "max_retries": 3,
-          "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
-          "referer": "https://www.mindler.com/"
-        },
-        "swayam": {
-          "name": "SWAYAM Courses",
-          "base_url": "https://swayam.gov.in",
-          "api_url": "https://swayam.gov.in/modules/gql/query",
-          "explorer_url": "https://swayam.gov.in/explorer",
-          "delay_between_requests": 0.5,
-          "warmup_wait_seconds": 4,
-          "timeout": 30,
-          "max_retries": 3,
-          "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
-        }
-      }
-    },
-    "metadata": {
-      "pipeline_duration_seconds": 2.549384,
-      "sites_run": [
-        "mindler",
-        "swayam"
-      ],
-      "overall_success": false
-    }
-  },
-  {
-    "run_id": "pipeline_20260930_124806",
-    "site": "pipeline",
-    "start_time": "2026-09-30T12:48:06.018117",
-    "end_time": "2026-09-30T12:48:08.429433",
-    "duration_seconds": 2.411316,
-    "overall_success": false,
-    "steps": [
-      {
-        "name": "scrape_mindler",
-        "success": false,
-        "message": "0 new, 0 updated, 0 unchanged, 0 failed",
-        "duration_seconds": 0.14809,
-        "records_processed": 0,
-        "records_new": 0,
-        "records_updated": 0,
-        "records_unchanged": 0,
-        "records_failed": 0,
-        "error": "Scraper returned no records; existing output was not modified"
-      },
-      {
-        "name": "scrape_swayam",
-        "success": false,
-        "message": "0 new, 0 updated, 0 unchanged, 0 failed",
-        "duration_seconds": 0.260257,
-        "records_processed": 0,
-        "records_new": 0,
-        "records_updated": 0,
-        "records_unchanged": 0,
-        "records_failed": 0,
-        "error": "Scraper returned no records; existing output was not modified"
-      }
-    ],
-    "total_records_processed": 0,
-    "total_new": 0,
-    "total_updated": 0,
-    "total_unchanged": 0,
-    "total_failed": 0,
-    "config_snapshot": {
-      "sites": [
-        "mindler",
-        "swayam"
-      ],
-      "pipeline_config": {
-        "max_concurrent_scrapers": 1,
-        "request_timeout": 30,
-        "default_max_retries": 3,
-        "retry_backoff_base": 2,
-        "retry_backoff_max": 60,
-        "duplicate_check_fields": {
-          "mindler": [
-            "subject_id"
-          ],
-          "swayam": [
-            "course_id",
-            "course_url"
-          ]
-        },
-        "required_fields": {
-          "mindler": [
-            "subject_id",
-            "subject_title"
-          ],
-          "swayam": [
-            "course_id",
-            "course_name",
-            "course_url"
-          ]
-        }
-      },
-      "sites_config": {
-        "mindler": {
-          "name": "Mindler Career Library",
-          "base_url": "https://careerlibrary.mindler.com",
-          "api_domain_list": "https://careerlibrary.mindler.com/api/careerlibrary/v1/careerDomainNameList",
-          "api_domain_details": "https://careerlibrary.mindler.com/api/careerlibrary/v1/careerDomainDetails",
-          "delay_between_requests": 0.3,
-          "timeout": 15,
-          "max_retries": 3,
-          "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
-          "referer": "https://www.mindler.com/"
-        },
-        "swayam": {
-          "name": "SWAYAM Courses",
-          "base_url": "https://swayam.gov.in",
-          "api_url": "https://swayam.gov.in/modules/gql/query",
-          "explorer_url": "https://swayam.gov.in/explorer",
-          "delay_between_requests": 0.5,
-          "warmup_wait_seconds": 4,
-          "timeout": 30,
-          "max_retries": 3,
-          "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
-        }
-      }
-    },
-    "metadata": {
-      "pipeline_duration_seconds": 2.4133,
-      "sites_run": [
-        "mindler",
-        "swayam"
-      ],
-      "overall_success": false
-    }
-  },
-  {
-    "run_id": "pipeline_20260930_124944",
-    "site": "pipeline",
-    "start_time": "2026-09-30T12:49:44.161136",
-    "end_time": "2026-09-30T12:49:46.720691",
-    "duration_seconds": 2.559555,
-    "overall_success": false,
-    "steps": [
-      {
-        "name": "scrape_mindler",
-        "success": false,
-        "message": "0 new, 0 updated, 0 unchanged, 0 failed",
-        "duration_seconds": 0.334719,
-        "records_processed": 0,
-        "records_new": 0,
-        "records_updated": 0,
-        "records_unchanged": 0,
-        "records_failed": 0,
-        "error": "Scraper returned no records; existing output was not modified"
-      },
-      {
-        "name": "scrape_swayam",
-        "success": false,
-        "message": "0 new, 0 updated, 0 unchanged, 0 failed",
-        "duration_seconds": 0.222764,
-        "records_processed": 0,
-        "records_new": 0,
-        "records_updated": 0,
-        "records_unchanged": 0,
-        "records_failed": 0,
-        "error": "Scraper returned no records; existing output was not modified"
-      }
-    ],
-    "total_records_processed": 0,
-    "total_new": 0,
-    "total_updated": 0,
-    "total_unchanged": 0,
-    "total_failed": 0,
-    "config_snapshot": {
-      "sites": [
-        "mindler",
-        "swayam"
-      ],
-      "pipeline_config": {
-        "max_concurrent_scrapers": 1,
-        "request_timeout": 30,
-        "default_max_retries": 3,
-        "retry_backoff_base": 2,
-        "retry_backoff_max": 60,
-        "duplicate_check_fields": {
-          "mindler": [
-            "subject_id"
-          ],
-          "swayam": [
-            "course_id",
-            "course_url"
-          ]
-        },
-        "required_fields": {
-          "mindler": [
-            "subject_id",
-            "subject_title"
-          ],
-          "swayam": [
-            "course_id",
-            "course_name",
-            "course_url"
-          ]
-        }
-      },
-      "sites_config": {
-        "mindler": {
-          "name": "Mindler Career Library",
-          "base_url": "https://careerlibrary.mindler.com",
-          "api_domain_list": "https://careerlibrary.mindler.com/api/careerlibrary/v1/careerDomainNameList",
-          "api_domain_details": "https://careerlibrary.mindler.com/api/careerlibrary/v1/careerDomainDetails",
-          "delay_between_requests": 0.3,
-          "timeout": 15,
-          "max_retries": 3,
-          "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
-          "referer": "https://www.mindler.com/"
-        },
-        "swayam": {
-          "name": "SWAYAM Courses",
-          "base_url": "https://swayam.gov.in",
-          "api_url": "https://swayam.gov.in/modules/gql/query",
-          "explorer_url": "https://swayam.gov.in/explorer",
-          "delay_between_requests": 0.5,
-          "warmup_wait_seconds": 4,
-          "timeout": 30,
-          "max_retries": 3,
-          "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
-        }
-      }
-    },
-    "metadata": {
-      "pipeline_duration_seconds": 2.560608,
-      "sites_run": [
-        "mindler",
-        "swayam"
-      ],
-      "overall_success": false
-    }
-  },
-  {
-    "run_id": "pipeline_20260930_125316",
-    "site": "pipeline",
-    "start_time": "2026-09-30T12:53:16.354168",
-    "end_time": "2026-09-30T12:53:16.529571",
-    "duration_seconds": 0.175403,
-    "overall_success": false,
-    "steps": [
-      {
-        "name": "scrape_mindler",
-        "success": false,
-        "message": "0 new, 0 updated, 0 unchanged, 0 failed",
-        "duration_seconds": 0.175403,
-        "records_processed": 0,
-        "records_new": 0,
-        "records_updated": 0,
-        "records_unchanged": 0,
-        "records_failed": 0,
-        "error": "Scraper returned no records; existing output was not modified"
-      }
-    ],
-    "total_records_processed": 0,
-    "total_new": 0,
-    "total_updated": 0,
-    "total_unchanged": 0,
-    "total_failed": 0,
-    "config_snapshot": {
-      "sites": [
-        "mindler"
-      ],
-      "pipeline_config": {
-        "max_concurrent_scrapers": 1,
-        "request_timeout": 30,
-        "default_max_retries": 3,
-        "retry_backoff_base": 2,
-        "retry_backoff_max": 60,
-        "duplicate_check_fields": {
-          "mindler": [
-            "subject_id"
-          ],
-          "swayam": [
-            "course_id",
-            "course_url"
-          ]
-        },
-        "required_fields": {
-          "mindler": [
-            "subject_id",
-            "subject_title"
-          ],
-          "swayam": [
-            "course_id",
-            "course_name",
-            "course_url"
-          ]
-        }
-      },
-      "sites_config": {
-        "mindler": {
-          "name": "Mindler Career Library",
-          "base_url": "https://careerlibrary.mindler.com",
-          "api_domain_list": "https://careerlibrary.mindler.com/api/careerlibrary/v1/careerDomainNameList",
-          "api_domain_details": "https://careerlibrary.mindler.com/api/careerlibrary/v1/careerDomainDetails",
-          "delay_between_requests": 0.3,
-          "timeout": 15,
-          "max_retries": 3,
-          "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
-          "referer": "https://www.mindler.com/"
-        },
-        "swayam": {
-          "name": "SWAYAM Courses",
-          "base_url": "https://swayam.gov.in",
-          "api_url": "https://swayam.gov.in/modules/gql/query",
-          "explorer_url": "https://swayam.gov.in/explorer",
-          "delay_between_requests": 0.5,
-          "warmup_wait_seconds": 4,
-          "timeout": 30,
-          "max_retries": 3,
-          "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
-        }
-      }
-    },
-    "metadata": {
-      "pipeline_duration_seconds": 0.176406,
-      "sites_run": [
-        "mindler"
-      ],
-      "overall_success": false
-    }
-  },
-  {
-    "run_id": "pipeline_20260930_125957",
-    "site": "pipeline",
-    "start_time": "2026-09-30T12:59:57.037742",
-    "end_time": "2026-09-30T13:00:09.968555",
-    "duration_seconds": 12.930813,
-    "overall_success": true,
-    "steps": [
-      {
-        "name": "scrape_mindler",
-        "success": true,
-        "message": "44 new, 0 updated, 0 unchanged, 0 failed",
-        "duration_seconds": 12.930813,
+        "message": "0 new, 44 updated, 0 unchanged, 0 failed",
+        "duration_seconds": 13.261013,
         "records_processed": 44,
-        "records_new": 44,
-        "records_updated": 0,
+        "records_new": 0,
+        "records_updated": 44,
         "records_unchanged": 0,
         "records_failed": 0,
         "error": null
-      }
-    ],
-    "total_records_processed": 44,
-    "total_new": 44,
-    "total_updated": 0,
-    "total_unchanged": 0,
-    "total_failed": 0,
-    "config_snapshot": {
-      "sites": [
-        "mindler"
-      ],
-      "pipeline_config": {
-        "max_concurrent_scrapers": 1,
-        "request_timeout": 30,
-        "default_max_retries": 3,
-        "retry_backoff_base": 2,
-        "retry_backoff_max": 60,
-        "duplicate_check_fields": {
-          "mindler": [
-            "subject_id"
-          ],
-          "swayam": [
-            "course_id",
-            "course_url"
-          ]
-        },
-        "required_fields": {
-          "mindler": [
-            "subject_id",
-            "subject_title"
-          ],
-          "swayam": [
-            "course_id",
-            "course_name",
-            "course_url"
-          ]
-        }
       },
-      "sites_config": {
-        "mindler": {
-          "name": "Mindler Career Library",
-          "base_url": "https://careerlibrary.mindler.com",
-          "api_domain_list": "https://careerlibrary.mindler.com/api/careerlibrary/v1/careerDomainNameList",
-          "api_domain_details": "https://careerlibrary.mindler.com/api/careerlibrary/v1/careerDomainDetails",
-          "delay_between_requests": 0.3,
-          "timeout": 15,
-          "max_retries": 3,
-          "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
-          "referer": "https://www.mindler.com/"
-        },
-        "swayam": {
-          "name": "SWAYAM Courses",
-          "base_url": "https://swayam.gov.in",
-          "api_url": "https://swayam.gov.in/modules/gql/query",
-          "explorer_url": "https://swayam.gov.in/explorer",
-          "delay_between_requests": 0.5,
-          "warmup_wait_seconds": 4,
-          "timeout": 30,
-          "max_retries": 3,
-          "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
-        }
-      }
-    },
-    "metadata": {
-      "pipeline_duration_seconds": 12.930813,
-      "sites_run": [
-        "mindler"
-      ],
-      "overall_success": true
-    }
-  },
-  {
-    "run_id": "pipeline_20260930_130018",
-    "site": "pipeline",
-    "start_time": "2026-09-30T13:00:18.860660",
-    "end_time": "2026-09-30T13:00:48.300256",
-    "duration_seconds": 29.439596,
-    "overall_success": true,
-    "steps": [
       {
         "name": "scrape_swayam",
         "success": true,
         "message": "2226 new, 0 updated, 0 unchanged, 0 failed",
-        "duration_seconds": 29.439596,
+        "duration_seconds": 30.840405,
         "records_processed": 2226,
         "records_new": 2226,
         "records_updated": 0,
@@ -906,13 +32,14 @@
         "error": null
       }
     ],
-    "total_records_processed": 2226,
+    "total_records_processed": 2270,
     "total_new": 2226,
-    "total_updated": 0,
+    "total_updated": 44,
     "total_unchanged": 0,
     "total_failed": 0,
     "config_snapshot": {
       "sites": [
+        "mindler",
         "swayam"
       ],
       "pipeline_config": {
@@ -968,26 +95,27 @@
       }
     },
     "metadata": {
-      "pipeline_duration_seconds": 29.439596,
+      "pipeline_duration_seconds": 46.104584,
       "sites_run": [
+        "mindler",
         "swayam"
       ],
       "overall_success": true
     }
   },
   {
-    "run_id": "pipeline_20260930_130053",
+    "run_id": "pipeline_20261001_011705",
     "site": "pipeline",
-    "start_time": "2026-09-30T13:00:53.632016",
-    "end_time": "2026-09-30T13:01:39.194424",
-    "duration_seconds": 45.562408,
+    "start_time": "2026-10-01T01:17:05.433966",
+    "end_time": "2026-10-01T01:17:54.424970",
+    "duration_seconds": 48.991004,
     "overall_success": true,
     "steps": [
       {
         "name": "scrape_mindler",
         "success": true,
         "message": "0 new, 44 updated, 0 unchanged, 0 failed",
-        "duration_seconds": 13.013705,
+        "duration_seconds": 13.218586,
         "records_processed": 44,
         "records_new": 0,
         "records_updated": 44,
@@ -999,7 +127,7 @@
         "name": "scrape_swayam",
         "success": true,
         "message": "0 new, 2226 updated, 0 unchanged, 0 failed",
-        "duration_seconds": 30.536498,
+        "duration_seconds": 33.76976,
         "records_processed": 2226,
         "records_new": 0,
         "records_updated": 2226,
@@ -1071,7 +199,7 @@
       }
     },
     "metadata": {
-      "pipeline_duration_seconds": 45.562408,
+      "pipeline_duration_seconds": 48.992951,
       "sites_run": [
         "mindler",
         "swayam"
@@ -1080,18 +208,18 @@
     }
   },
   {
-    "run_id": "pipeline_20260930_130237",
+    "run_id": "pipeline_20261001_012951",
     "site": "pipeline",
-    "start_time": "2026-09-30T13:02:37.724590",
-    "end_time": "2026-09-30T13:03:26.396643",
-    "duration_seconds": 48.672053,
+    "start_time": "2026-10-01T01:29:51.616975",
+    "end_time": "2026-10-01T01:30:38.479254",
+    "duration_seconds": 46.862279,
     "overall_success": true,
     "steps": [
       {
         "name": "scrape_mindler",
         "success": true,
         "message": "0 new, 44 updated, 0 unchanged, 0 failed",
-        "duration_seconds": 13.063024,
+        "duration_seconds": 13.633462,
         "records_processed": 44,
         "records_new": 0,
         "records_updated": 44,
@@ -1103,7 +231,7 @@
         "name": "scrape_swayam",
         "success": true,
         "message": "0 new, 2226 updated, 0 unchanged, 0 failed",
-        "duration_seconds": 33.597676,
+        "duration_seconds": 31.214441,
         "records_processed": 2226,
         "records_new": 0,
         "records_updated": 2226,
@@ -1175,7 +303,7 @@
       }
     },
     "metadata": {
-      "pipeline_duration_seconds": 48.672053,
+      "pipeline_duration_seconds": 46.862279,
       "sites_run": [
         "mindler",
         "swayam"
@@ -1184,108 +312,18 @@
     }
   },
   {
-    "run_id": "pipeline_20260930_133313",
+    "run_id": "pipeline_20261001_013749",
     "site": "pipeline",
-    "start_time": "2026-09-30T13:33:13.831607",
-    "end_time": "2026-09-30T13:33:51.674052",
-    "duration_seconds": 37.842445,
-    "overall_success": true,
-    "steps": [
-      {
-        "name": "scrape_swayam",
-        "success": true,
-        "message": "0 new, 2226 updated, 0 unchanged, 0 failed",
-        "duration_seconds": 37.842445,
-        "records_processed": 2226,
-        "records_new": 0,
-        "records_updated": 2226,
-        "records_unchanged": 0,
-        "records_failed": 0,
-        "error": null
-      }
-    ],
-    "total_records_processed": 2226,
-    "total_new": 0,
-    "total_updated": 2226,
-    "total_unchanged": 0,
-    "total_failed": 0,
-    "config_snapshot": {
-      "sites": [
-        "swayam"
-      ],
-      "pipeline_config": {
-        "max_concurrent_scrapers": 1,
-        "request_timeout": 30,
-        "default_max_retries": 3,
-        "retry_backoff_base": 2,
-        "retry_backoff_max": 60,
-        "duplicate_check_fields": {
-          "mindler": [
-            "subject_id"
-          ],
-          "swayam": [
-            "course_id",
-            "course_url"
-          ]
-        },
-        "required_fields": {
-          "mindler": [
-            "subject_id",
-            "subject_title"
-          ],
-          "swayam": [
-            "course_id",
-            "course_name",
-            "course_url"
-          ]
-        }
-      },
-      "sites_config": {
-        "mindler": {
-          "name": "Mindler Career Library",
-          "base_url": "https://careerlibrary.mindler.com",
-          "api_domain_list": "https://careerlibrary.mindler.com/api/careerlibrary/v1/careerDomainNameList",
-          "api_domain_details": "https://careerlibrary.mindler.com/api/careerlibrary/v1/careerDomainDetails",
-          "delay_between_requests": 0.3,
-          "timeout": 15,
-          "max_retries": 3,
-          "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
-          "referer": "https://www.mindler.com/"
-        },
-        "swayam": {
-          "name": "SWAYAM Courses",
-          "base_url": "https://swayam.gov.in",
-          "api_url": "https://swayam.gov.in/modules/gql/query",
-          "explorer_url": "https://swayam.gov.in/explorer",
-          "delay_between_requests": 0.5,
-          "warmup_wait_seconds": 4,
-          "timeout": 30,
-          "max_retries": 3,
-          "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
-        }
-      }
-    },
-    "metadata": {
-      "pipeline_duration_seconds": 37.842445,
-      "sites_run": [
-        "swayam"
-      ],
-      "overall_success": true
-    }
-  },
-  {
-    "run_id": "pipeline_20260930_133649",
-    "site": "pipeline",
-    "start_time": "2026-09-30T13:36:49.867950",
-    "end_time": "2026-09-30T13:37:41.461614",
-    "duration_seconds": 51.593664,
+    "start_time": "2026-10-01T01:37:49.038271",
+    "end_time": "2026-10-01T01:38:37.242860",
+    "duration_seconds": 48.204589,
     "overall_success": true,
     "steps": [
       {
         "name": "scrape_mindler",
         "success": true,
         "message": "0 new, 44 updated, 0 unchanged, 0 failed",
-        "duration_seconds": 13.147802,
+        "duration_seconds": 13.895671,
         "records_processed": 44,
         "records_new": 0,
         "records_updated": 44,
@@ -1297,7 +335,7 @@
         "name": "scrape_swayam",
         "success": true,
         "message": "0 new, 2226 updated, 0 unchanged, 0 failed",
-        "duration_seconds": 36.435086,
+        "duration_seconds": 32.297452,
         "records_processed": 2226,
         "records_new": 0,
         "records_updated": 2226,
@@ -1369,7 +407,7 @@
       }
     },
     "metadata": {
-      "pipeline_duration_seconds": 51.593664,
+      "pipeline_duration_seconds": 48.204589,
       "sites_run": [
         "mindler",
         "swayam"
@@ -1378,18 +416,18 @@
     }
   },
   {
-    "run_id": "pipeline_20260930_134001",
+    "run_id": "pipeline_20261001_014611",
     "site": "pipeline",
-    "start_time": "2026-09-30T13:40:01.490281",
-    "end_time": "2026-09-30T13:40:57.054168",
-    "duration_seconds": 55.563887,
+    "start_time": "2026-10-01T01:46:11.292767",
+    "end_time": "2026-10-01T01:46:59.165714",
+    "duration_seconds": 47.872947,
     "overall_success": true,
     "steps": [
       {
         "name": "scrape_mindler",
         "success": true,
         "message": "0 new, 44 updated, 0 unchanged, 0 failed",
-        "duration_seconds": 13.154163,
+        "duration_seconds": 13.809805,
         "records_processed": 44,
         "records_new": 0,
         "records_updated": 44,
@@ -1401,7 +439,7 @@
         "name": "scrape_swayam",
         "success": true,
         "message": "0 new, 2226 updated, 0 unchanged, 0 failed",
-        "duration_seconds": 40.397628,
+        "duration_seconds": 32.043447,
         "records_processed": 2226,
         "records_new": 0,
         "records_updated": 2226,
@@ -1473,7 +511,7 @@
       }
     },
     "metadata": {
-      "pipeline_duration_seconds": 55.563887,
+      "pipeline_duration_seconds": 47.872947,
       "sites_run": [
         "mindler",
         "swayam"
@@ -1482,18 +520,18 @@
     }
   },
   {
-    "run_id": "pipeline_20260930_134344",
+    "run_id": "pipeline_20261001_014808",
     "site": "pipeline",
-    "start_time": "2026-09-30T13:43:44.557573",
-    "end_time": "2026-09-30T13:44:35.410815",
-    "duration_seconds": 50.853242,
+    "start_time": "2026-10-01T01:48:08.737782",
+    "end_time": "2026-10-01T01:48:56.058307",
+    "duration_seconds": 47.320525,
     "overall_success": true,
     "steps": [
       {
         "name": "scrape_mindler",
         "success": true,
         "message": "0 new, 44 updated, 0 unchanged, 0 failed",
-        "duration_seconds": 13.212713,
+        "duration_seconds": 13.512182,
         "records_processed": 44,
         "records_new": 0,
         "records_updated": 44,
@@ -1505,7 +543,7 @@
         "name": "scrape_swayam",
         "success": true,
         "message": "0 new, 2226 updated, 0 unchanged, 0 failed",
-        "duration_seconds": 35.63202,
+        "duration_seconds": 31.801863,
         "records_processed": 2226,
         "records_new": 0,
         "records_updated": 2226,
@@ -1577,7 +615,631 @@
       }
     },
     "metadata": {
-      "pipeline_duration_seconds": 50.853242,
+      "pipeline_duration_seconds": 47.320525,
+      "sites_run": [
+        "mindler",
+        "swayam"
+      ],
+      "overall_success": true
+    }
+  },
+  {
+    "run_id": "pipeline_20261001_104644",
+    "site": "pipeline",
+    "start_time": "2026-10-01T10:46:44.618312",
+    "end_time": "2026-10-01T10:47:37.480643",
+    "duration_seconds": 52.862331,
+    "overall_success": true,
+    "steps": [
+      {
+        "name": "scrape_mindler",
+        "success": true,
+        "message": "0 new, 44 updated, 0 unchanged, 0 failed",
+        "duration_seconds": 13.018136,
+        "records_processed": 44,
+        "records_new": 0,
+        "records_updated": 44,
+        "records_unchanged": 0,
+        "records_failed": 0,
+        "error": null
+      },
+      {
+        "name": "scrape_swayam",
+        "success": true,
+        "message": "0 new, 2226 updated, 0 unchanged, 0 failed",
+        "duration_seconds": 37.842264,
+        "records_processed": 2226,
+        "records_new": 0,
+        "records_updated": 2226,
+        "records_unchanged": 0,
+        "records_failed": 0,
+        "error": null
+      }
+    ],
+    "total_records_processed": 2270,
+    "total_new": 0,
+    "total_updated": 2270,
+    "total_unchanged": 0,
+    "total_failed": 0,
+    "config_snapshot": {
+      "sites": [
+        "mindler",
+        "swayam"
+      ],
+      "pipeline_config": {
+        "max_concurrent_scrapers": 1,
+        "request_timeout": 30,
+        "default_max_retries": 3,
+        "retry_backoff_base": 2,
+        "retry_backoff_max": 60,
+        "duplicate_check_fields": {
+          "mindler": [
+            "subject_id"
+          ],
+          "swayam": [
+            "course_id",
+            "course_url"
+          ]
+        },
+        "required_fields": {
+          "mindler": [
+            "subject_id",
+            "subject_title"
+          ],
+          "swayam": [
+            "course_id",
+            "course_name",
+            "course_url"
+          ]
+        }
+      },
+      "sites_config": {
+        "mindler": {
+          "name": "Mindler Career Library",
+          "base_url": "https://careerlibrary.mindler.com",
+          "api_domain_list": "https://careerlibrary.mindler.com/api/careerlibrary/v1/careerDomainNameList",
+          "api_domain_details": "https://careerlibrary.mindler.com/api/careerlibrary/v1/careerDomainDetails",
+          "delay_between_requests": 0.3,
+          "timeout": 15,
+          "max_retries": 3,
+          "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
+          "referer": "https://www.mindler.com/"
+        },
+        "swayam": {
+          "name": "SWAYAM Courses",
+          "base_url": "https://swayam.gov.in",
+          "api_url": "https://swayam.gov.in/modules/gql/query",
+          "explorer_url": "https://swayam.gov.in/explorer",
+          "delay_between_requests": 0.5,
+          "warmup_wait_seconds": 4,
+          "timeout": 30,
+          "max_retries": 3,
+          "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+        }
+      }
+    },
+    "metadata": {
+      "pipeline_duration_seconds": 52.862331,
+      "sites_run": [
+        "mindler",
+        "swayam"
+      ],
+      "overall_success": true
+    }
+  },
+  {
+    "run_id": "pipeline_20261001_105307",
+    "site": "pipeline",
+    "start_time": "2026-10-01T10:53:07.813176",
+    "end_time": "2026-10-01T10:53:57.493680",
+    "duration_seconds": 49.680504,
+    "overall_success": true,
+    "steps": [
+      {
+        "name": "scrape_mindler",
+        "success": true,
+        "message": "0 new, 44 updated, 0 unchanged, 0 failed",
+        "duration_seconds": 13.547626,
+        "records_processed": 44,
+        "records_new": 0,
+        "records_updated": 44,
+        "records_unchanged": 0,
+        "records_failed": 0,
+        "error": null
+      },
+      {
+        "name": "scrape_swayam",
+        "success": true,
+        "message": "0 new, 2226 updated, 0 unchanged, 0 failed",
+        "duration_seconds": 34.117581,
+        "records_processed": 2226,
+        "records_new": 0,
+        "records_updated": 2226,
+        "records_unchanged": 0,
+        "records_failed": 0,
+        "error": null
+      }
+    ],
+    "total_records_processed": 2270,
+    "total_new": 0,
+    "total_updated": 2270,
+    "total_unchanged": 0,
+    "total_failed": 0,
+    "config_snapshot": {
+      "sites": [
+        "mindler",
+        "swayam"
+      ],
+      "pipeline_config": {
+        "max_concurrent_scrapers": 1,
+        "request_timeout": 30,
+        "default_max_retries": 3,
+        "retry_backoff_base": 2,
+        "retry_backoff_max": 60,
+        "duplicate_check_fields": {
+          "mindler": [
+            "subject_id"
+          ],
+          "swayam": [
+            "course_id",
+            "course_url"
+          ]
+        },
+        "required_fields": {
+          "mindler": [
+            "subject_id",
+            "subject_title"
+          ],
+          "swayam": [
+            "course_id",
+            "course_name",
+            "course_url"
+          ]
+        }
+      },
+      "sites_config": {
+        "mindler": {
+          "name": "Mindler Career Library",
+          "base_url": "https://careerlibrary.mindler.com",
+          "api_domain_list": "https://careerlibrary.mindler.com/api/careerlibrary/v1/careerDomainNameList",
+          "api_domain_details": "https://careerlibrary.mindler.com/api/careerlibrary/v1/careerDomainDetails",
+          "delay_between_requests": 0.3,
+          "timeout": 15,
+          "max_retries": 3,
+          "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
+          "referer": "https://www.mindler.com/"
+        },
+        "swayam": {
+          "name": "SWAYAM Courses",
+          "base_url": "https://swayam.gov.in",
+          "api_url": "https://swayam.gov.in/modules/gql/query",
+          "explorer_url": "https://swayam.gov.in/explorer",
+          "delay_between_requests": 0.5,
+          "warmup_wait_seconds": 4,
+          "timeout": 30,
+          "max_retries": 3,
+          "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+        }
+      }
+    },
+    "metadata": {
+      "pipeline_duration_seconds": 49.680504,
+      "sites_run": [
+        "mindler",
+        "swayam"
+      ],
+      "overall_success": true
+    }
+  },
+  {
+    "run_id": "pipeline_20261001_105631",
+    "site": "pipeline",
+    "start_time": "2026-10-01T10:56:31.245531",
+    "end_time": "2026-10-01T10:57:27.051343",
+    "duration_seconds": 55.805812,
+    "overall_success": true,
+    "steps": [
+      {
+        "name": "scrape_mindler",
+        "success": true,
+        "message": "0 new, 44 updated, 0 unchanged, 0 failed",
+        "duration_seconds": 13.725212,
+        "records_processed": 44,
+        "records_new": 0,
+        "records_updated": 44,
+        "records_unchanged": 0,
+        "records_failed": 0,
+        "error": null
+      },
+      {
+        "name": "scrape_swayam",
+        "success": true,
+        "message": "0 new, 2226 updated, 0 unchanged, 0 failed",
+        "duration_seconds": 40.070423,
+        "records_processed": 2226,
+        "records_new": 0,
+        "records_updated": 2226,
+        "records_unchanged": 0,
+        "records_failed": 0,
+        "error": null
+      }
+    ],
+    "total_records_processed": 2270,
+    "total_new": 0,
+    "total_updated": 2270,
+    "total_unchanged": 0,
+    "total_failed": 0,
+    "config_snapshot": {
+      "sites": [
+        "mindler",
+        "swayam"
+      ],
+      "pipeline_config": {
+        "max_concurrent_scrapers": 1,
+        "request_timeout": 30,
+        "default_max_retries": 3,
+        "retry_backoff_base": 2,
+        "retry_backoff_max": 60,
+        "duplicate_check_fields": {
+          "mindler": [
+            "subject_id"
+          ],
+          "swayam": [
+            "course_id",
+            "course_url"
+          ]
+        },
+        "required_fields": {
+          "mindler": [
+            "subject_id",
+            "subject_title"
+          ],
+          "swayam": [
+            "course_id",
+            "course_name",
+            "course_url"
+          ]
+        }
+      },
+      "sites_config": {
+        "mindler": {
+          "name": "Mindler Career Library",
+          "base_url": "https://careerlibrary.mindler.com",
+          "api_domain_list": "https://careerlibrary.mindler.com/api/careerlibrary/v1/careerDomainNameList",
+          "api_domain_details": "https://careerlibrary.mindler.com/api/careerlibrary/v1/careerDomainDetails",
+          "delay_between_requests": 0.3,
+          "timeout": 15,
+          "max_retries": 3,
+          "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
+          "referer": "https://www.mindler.com/"
+        },
+        "swayam": {
+          "name": "SWAYAM Courses",
+          "base_url": "https://swayam.gov.in",
+          "api_url": "https://swayam.gov.in/modules/gql/query",
+          "explorer_url": "https://swayam.gov.in/explorer",
+          "delay_between_requests": 0.5,
+          "warmup_wait_seconds": 4,
+          "timeout": 30,
+          "max_retries": 3,
+          "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+        }
+      }
+    },
+    "metadata": {
+      "pipeline_duration_seconds": 55.805812,
+      "sites_run": [
+        "mindler",
+        "swayam"
+      ],
+      "overall_success": true
+    }
+  },
+  {
+    "run_id": "pipeline_20261001_110221",
+    "site": "pipeline",
+    "start_time": "2026-10-01T11:02:21.052413",
+    "end_time": "2026-10-01T11:03:16.586933",
+    "duration_seconds": 55.53452,
+    "overall_success": true,
+    "steps": [
+      {
+        "name": "scrape_mindler",
+        "success": true,
+        "message": "0 new, 44 updated, 0 unchanged, 0 failed",
+        "duration_seconds": 13.296562,
+        "records_processed": 44,
+        "records_new": 0,
+        "records_updated": 44,
+        "records_unchanged": 0,
+        "records_failed": 0,
+        "error": null
+      },
+      {
+        "name": "scrape_swayam",
+        "success": true,
+        "message": "0 new, 2226 updated, 0 unchanged, 0 failed",
+        "duration_seconds": 40.222672,
+        "records_processed": 2226,
+        "records_new": 0,
+        "records_updated": 2226,
+        "records_unchanged": 0,
+        "records_failed": 0,
+        "error": null
+      }
+    ],
+    "total_records_processed": 2270,
+    "total_new": 0,
+    "total_updated": 2270,
+    "total_unchanged": 0,
+    "total_failed": 0,
+    "config_snapshot": {
+      "sites": [
+        "mindler",
+        "swayam"
+      ],
+      "pipeline_config": {
+        "max_concurrent_scrapers": 1,
+        "request_timeout": 30,
+        "default_max_retries": 3,
+        "retry_backoff_base": 2,
+        "retry_backoff_max": 60,
+        "duplicate_check_fields": {
+          "mindler": [
+            "subject_id"
+          ],
+          "swayam": [
+            "course_id",
+            "course_url"
+          ]
+        },
+        "required_fields": {
+          "mindler": [
+            "subject_id",
+            "subject_title"
+          ],
+          "swayam": [
+            "course_id",
+            "course_name",
+            "course_url"
+          ]
+        }
+      },
+      "sites_config": {
+        "mindler": {
+          "name": "Mindler Career Library",
+          "base_url": "https://careerlibrary.mindler.com",
+          "api_domain_list": "https://careerlibrary.mindler.com/api/careerlibrary/v1/careerDomainNameList",
+          "api_domain_details": "https://careerlibrary.mindler.com/api/careerlibrary/v1/careerDomainDetails",
+          "delay_between_requests": 0.3,
+          "timeout": 15,
+          "max_retries": 3,
+          "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
+          "referer": "https://www.mindler.com/"
+        },
+        "swayam": {
+          "name": "SWAYAM Courses",
+          "base_url": "https://swayam.gov.in",
+          "api_url": "https://swayam.gov.in/modules/gql/query",
+          "explorer_url": "https://swayam.gov.in/explorer",
+          "delay_between_requests": 0.5,
+          "warmup_wait_seconds": 4,
+          "timeout": 30,
+          "max_retries": 3,
+          "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+        }
+      }
+    },
+    "metadata": {
+      "pipeline_duration_seconds": 55.53452,
+      "sites_run": [
+        "mindler",
+        "swayam"
+      ],
+      "overall_success": true
+    }
+  },
+  {
+    "run_id": "pipeline_20261001_111248",
+    "site": "pipeline",
+    "start_time": "2026-10-01T11:12:48.258513",
+    "end_time": "2026-10-01T11:13:39.369339",
+    "duration_seconds": 51.110826,
+    "overall_success": true,
+    "steps": [
+      {
+        "name": "scrape_mindler",
+        "success": true,
+        "message": "0 new, 44 updated, 0 unchanged, 0 failed",
+        "duration_seconds": 13.253543,
+        "records_processed": 44,
+        "records_new": 0,
+        "records_updated": 44,
+        "records_unchanged": 0,
+        "records_failed": 0,
+        "error": null
+      },
+      {
+        "name": "scrape_swayam",
+        "success": true,
+        "message": "0 new, 2226 updated, 0 unchanged, 0 failed",
+        "duration_seconds": 35.853684,
+        "records_processed": 2226,
+        "records_new": 0,
+        "records_updated": 2226,
+        "records_unchanged": 0,
+        "records_failed": 0,
+        "error": null
+      }
+    ],
+    "total_records_processed": 2270,
+    "total_new": 0,
+    "total_updated": 2270,
+    "total_unchanged": 0,
+    "total_failed": 0,
+    "config_snapshot": {
+      "sites": [
+        "mindler",
+        "swayam"
+      ],
+      "pipeline_config": {
+        "max_concurrent_scrapers": 1,
+        "request_timeout": 30,
+        "default_max_retries": 3,
+        "retry_backoff_base": 2,
+        "retry_backoff_max": 60,
+        "duplicate_check_fields": {
+          "mindler": [
+            "subject_id"
+          ],
+          "swayam": [
+            "course_id",
+            "course_url"
+          ]
+        },
+        "required_fields": {
+          "mindler": [
+            "subject_id",
+            "subject_title"
+          ],
+          "swayam": [
+            "course_id",
+            "course_name",
+            "course_url"
+          ]
+        }
+      },
+      "sites_config": {
+        "mindler": {
+          "name": "Mindler Career Library",
+          "base_url": "https://careerlibrary.mindler.com",
+          "api_domain_list": "https://careerlibrary.mindler.com/api/careerlibrary/v1/careerDomainNameList",
+          "api_domain_details": "https://careerlibrary.mindler.com/api/careerlibrary/v1/careerDomainDetails",
+          "delay_between_requests": 0.3,
+          "timeout": 15,
+          "max_retries": 3,
+          "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
+          "referer": "https://www.mindler.com/"
+        },
+        "swayam": {
+          "name": "SWAYAM Courses",
+          "base_url": "https://swayam.gov.in",
+          "api_url": "https://swayam.gov.in/modules/gql/query",
+          "explorer_url": "https://swayam.gov.in/explorer",
+          "delay_between_requests": 0.5,
+          "warmup_wait_seconds": 4,
+          "timeout": 30,
+          "max_retries": 3,
+          "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+        }
+      }
+    },
+    "metadata": {
+      "pipeline_duration_seconds": 51.110826,
+      "sites_run": [
+        "mindler",
+        "swayam"
+      ],
+      "overall_success": true
+    }
+  },
+  {
+    "run_id": "pipeline_20261001_115950",
+    "site": "pipeline",
+    "start_time": "2026-10-01T11:59:50.577141",
+    "end_time": "2026-10-01T12:00:42.508336",
+    "duration_seconds": 51.931195,
+    "overall_success": true,
+    "steps": [
+      {
+        "name": "scrape_mindler",
+        "success": true,
+        "message": "0 new, 44 updated, 0 unchanged, 0 failed",
+        "duration_seconds": 13.598376,
+        "records_processed": 44,
+        "records_new": 0,
+        "records_updated": 44,
+        "records_unchanged": 0,
+        "records_failed": 0,
+        "error": null
+      },
+      {
+        "name": "scrape_swayam",
+        "success": true,
+        "message": "0 new, 2226 updated, 0 unchanged, 0 failed",
+        "duration_seconds": 36.33237,
+        "records_processed": 2226,
+        "records_new": 0,
+        "records_updated": 2226,
+        "records_unchanged": 0,
+        "records_failed": 0,
+        "error": null
+      }
+    ],
+    "total_records_processed": 2270,
+    "total_new": 0,
+    "total_updated": 2270,
+    "total_unchanged": 0,
+    "total_failed": 0,
+    "config_snapshot": {
+      "sites": [
+        "mindler",
+        "swayam"
+      ],
+      "pipeline_config": {
+        "max_concurrent_scrapers": 1,
+        "request_timeout": 30,
+        "default_max_retries": 3,
+        "retry_backoff_base": 2,
+        "retry_backoff_max": 60,
+        "duplicate_check_fields": {
+          "mindler": [
+            "subject_id"
+          ],
+          "swayam": [
+            "course_id",
+            "course_url"
+          ]
+        },
+        "required_fields": {
+          "mindler": [
+            "subject_id",
+            "subject_title"
+          ],
+          "swayam": [
+            "course_id",
+            "course_name",
+            "course_url"
+          ]
+        }
+      },
+      "sites_config": {
+        "mindler": {
+          "name": "Mindler Career Library",
+          "base_url": "https://careerlibrary.mindler.com",
+          "api_domain_list": "https://careerlibrary.mindler.com/api/careerlibrary/v1/careerDomainNameList",
+          "api_domain_details": "https://careerlibrary.mindler.com/api/careerlibrary/v1/careerDomainDetails",
+          "delay_between_requests": 0.3,
+          "timeout": 15,
+          "max_retries": 3,
+          "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
+          "referer": "https://www.mindler.com/"
+        },
+        "swayam": {
+          "name": "SWAYAM Courses",
+          "base_url": "https://swayam.gov.in",
+          "api_url": "https://swayam.gov.in/modules/gql/query",
+          "explorer_url": "https://swayam.gov.in/explorer",
+          "delay_between_requests": 0.5,
+          "warmup_wait_seconds": 4,
+          "timeout": 30,
+          "max_retries": 3,
+          "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+        }
+      }
+    },
+    "metadata": {
+      "pipeline_duration_seconds": 51.931195,
       "sites_run": [
         "mindler",
         "swayam"

@@ -1,32 +1,45 @@
 {
-  "run_id": "pipeline_20260930_125957",
+  "run_id": "pipeline_20261001_115950",
   "site": "pipeline",
-  "start_time": "2026-09-30T12:59:57.037742",
-  "end_time": "2026-09-30T13:00:09.968555",
-  "duration_seconds": 12.930813,
+  "start_time": "2026-10-01T11:59:50.577141",
+  "end_time": "2026-10-01T12:00:42.508336",
+  "duration_seconds": 51.931195,
   "overall_success": true,
   "steps": [
     {
       "name": "scrape_mindler",
       "success": true,
-      "message": "44 new, 0 updated, 0 unchanged, 0 failed",
-      "duration_seconds": 12.930813,
+      "message": "0 new, 44 updated, 0 unchanged, 0 failed",
+      "duration_seconds": 13.598376,
       "records_processed": 44,
-      "records_new": 44,
-      "records_updated": 0,
+      "records_new": 0,
+      "records_updated": 44,
+      "records_unchanged": 0,
+      "records_failed": 0,
+      "error": null
+    },
+    {
+      "name": "scrape_swayam",
+      "success": true,
+      "message": "0 new, 2226 updated, 0 unchanged, 0 failed",
+      "duration_seconds": 36.33237,
+      "records_processed": 2226,
+      "records_new": 0,
+      "records_updated": 2226,
       "records_unchanged": 0,
       "records_failed": 0,
       "error": null
     }
   ],
-  "total_records_processed": 44,
-  "total_new": 44,
-  "total_updated": 0,
+  "total_records_processed": 2270,
+  "total_new": 0,
+  "total_updated": 2270,
   "total_unchanged": 0,
   "total_failed": 0,
   "config_snapshot": {
     "sites": [
-      "mindler"
+      "mindler",
+      "swayam"
     ],
     "pipeline_config": {
       "max_concurrent_scrapers": 1,
@@ -81,9 +94,10 @@
     }
   },
   "metadata": {
-    "pipeline_duration_seconds": 12.930813,
+    "pipeline_duration_seconds": 51.931195,
     "sites_run": [
-      "mindler"
+      "mindler",
+      "swayam"
     ],
     "overall_success": true
   }

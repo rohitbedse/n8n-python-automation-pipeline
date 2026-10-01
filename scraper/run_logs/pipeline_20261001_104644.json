@@ -1,39 +1,39 @@
 {
-  "run_id": "pipeline_20260930_124143",
+  "run_id": "pipeline_20261001_104644",
   "site": "pipeline",
-  "start_time": "2026-09-30T12:41:43.385107",
-  "end_time": "2026-09-30T12:41:45.931325",
-  "duration_seconds": 2.546218,
-  "overall_success": false,
+  "start_time": "2026-10-01T10:46:44.618312",
+  "end_time": "2026-10-01T10:47:37.480643",
+  "duration_seconds": 52.862331,
+  "overall_success": true,
   "steps": [
     {
       "name": "scrape_mindler",
-      "success": false,
-      "message": "0 new, 0 updated, 0 unchanged, 0 failed",
-      "duration_seconds": 0.154716,
-      "records_processed": 0,
+      "success": true,
+      "message": "0 new, 44 updated, 0 unchanged, 0 failed",
+      "duration_seconds": 13.018136,
+      "records_processed": 44,
       "records_new": 0,
-      "records_updated": 0,
+      "records_updated": 44,
       "records_unchanged": 0,
       "records_failed": 0,
-      "error": "Scraper returned no records; existing output was not modified"
+      "error": null
     },
     {
       "name": "scrape_swayam",
-      "success": false,
-      "message": "0 new, 0 updated, 0 unchanged, 0 failed",
-      "duration_seconds": 0.386278,
-      "records_processed": 0,
+      "success": true,
+      "message": "0 new, 2226 updated, 0 unchanged, 0 failed",
+      "duration_seconds": 37.842264,
+      "records_processed": 2226,
       "records_new": 0,
-      "records_updated": 0,
+      "records_updated": 2226,
       "records_unchanged": 0,
       "records_failed": 0,
-      "error": "Scraper returned no records; existing output was not modified"
+      "error": null
     }
   ],
-  "total_records_processed": 0,
+  "total_records_processed": 2270,
   "total_new": 0,
-  "total_updated": 0,
+  "total_updated": 2270,
   "total_unchanged": 0,
   "total_failed": 0,
   "config_snapshot": {
@@ -54,10 +54,6 @@
         "swayam": [
           "course_id",
           "course_url"
-        ],
-        "careers360": [
-          "id",
-          "url"
         ]
       },
       "required_fields": {
@@ -69,11 +65,6 @@
           "course_id",
           "course_name",
           "course_url"
-        ],
-        "careers360": [
-          "id",
-          "title",
-          "url"
         ]
       }
     },
@@ -103,11 +94,11 @@
     }
   },
   "metadata": {
-    "pipeline_duration_seconds": 2.549384,
+    "pipeline_duration_seconds": 52.862331,
     "sites_run": [
       "mindler",
       "swayam"
     ],
-    "overall_success": false
+    "overall_success": true
   }
 }

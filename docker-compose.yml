@@ -27,9 +27,9 @@ services:
       dockerfile: Dockerfile
     container_name: scraper-python
     volumes:
-      - ./scraper:/data/scraper
-    working_dir: /data/scraper
-    command: python run_pipeline.py
+      - .:/project
+    working_dir: /project/scraper
+    command: python run_pipeline_new.py
 
 volumes:
   n8n_data:

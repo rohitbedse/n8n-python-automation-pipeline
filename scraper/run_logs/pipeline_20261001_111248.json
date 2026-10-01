@@ -1,19 +1,19 @@
 {
-  "run_id": "pipeline_20260930_121130",
+  "run_id": "pipeline_20261001_111248",
   "site": "pipeline",
-  "start_time": "2026-09-30T12:11:30.283498",
-  "end_time": "2026-09-30T12:11:44.452189",
-  "duration_seconds": 14.168691,
+  "start_time": "2026-10-01T11:12:48.258513",
+  "end_time": "2026-10-01T11:13:39.369339",
+  "duration_seconds": 51.110826,
   "overall_success": true,
   "steps": [
     {
       "name": "scrape_mindler",
       "success": true,
-      "message": "0 new, 0 updated, 0 unchanged, 0 failed",
-      "duration_seconds": 0.604008,
-      "records_processed": 0,
+      "message": "0 new, 44 updated, 0 unchanged, 0 failed",
+      "duration_seconds": 13.253543,
+      "records_processed": 44,
       "records_new": 0,
-      "records_updated": 0,
+      "records_updated": 44,
       "records_unchanged": 0,
       "records_failed": 0,
       "error": null
@@ -21,38 +21,25 @@
     {
       "name": "scrape_swayam",
       "success": true,
-      "message": "0 new, 0 updated, 0 unchanged, 0 failed",
-      "duration_seconds": 0.464527,
-      "records_processed": 0,
+      "message": "0 new, 2226 updated, 0 unchanged, 0 failed",
+      "duration_seconds": 35.853684,
+      "records_processed": 2226,
       "records_new": 0,
-      "records_updated": 0,
-      "records_unchanged": 0,
-      "records_failed": 0,
-      "error": null
-    },
-    {
-      "name": "scrape_careers360",
-      "success": true,
-      "message": "0 new, 0 updated, 0 unchanged, 0 failed",
-      "duration_seconds": 9.084515,
-      "records_processed": 0,
-      "records_new": 0,
-      "records_updated": 0,
+      "records_updated": 2226,
       "records_unchanged": 0,
       "records_failed": 0,
       "error": null
     }
   ],
-  "total_records_processed": 0,
+  "total_records_processed": 2270,
   "total_new": 0,
-  "total_updated": 0,
+  "total_updated": 2270,
   "total_unchanged": 0,
   "total_failed": 0,
   "config_snapshot": {
     "sites": [
       "mindler",
-      "swayam",
-      "careers360"
+      "swayam"
     ],
     "pipeline_config": {
       "max_concurrent_scrapers": 1,
@@ -67,10 +54,6 @@
         "swayam": [
           "course_id",
           "course_url"
-        ],
-        "careers360": [
-          "id",
-          "url"
         ]
       },
       "required_fields": {
@@ -82,11 +65,6 @@
           "course_id",
           "course_name",
           "course_url"
-        ],
-        "careers360": [
-          "id",
-          "title",
-          "url"
         ]
       }
     },
@@ -112,24 +90,14 @@
         "timeout": 30,
         "max_retries": 3,
         "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
-      },
-      "careers360": {
-        "name": "Careers360",
-        "base_url": "https://www.careers360.com",
-        "delay_between_requests": 1.0,
-        "timeout": 30,
-        "max_retries": 3,
-        "max_pages_per_category": 5,
-        "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
       }
     }
   },
   "metadata": {
-    "pipeline_duration_seconds": 14.174462,
+    "pipeline_duration_seconds": 51.110826,
     "sites_run": [
       "mindler",
-      "swayam",
-      "careers360"
+      "swayam"
     ],
     "overall_success": true
   }
