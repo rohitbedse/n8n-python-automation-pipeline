@@ -7,10 +7,24 @@ from pathlib import Path
 from dataclasses import dataclass, field
 from typing import Dict, Any
 
-# Base paths
-PROJECT_ROOT = Path(os.getenv("SCRAPER_PROJECT_ROOT", r"C:\n8n-project\scraper"))
-OUTPUT_DIR = PROJECT_ROOT / "output"
-RUN_LOGS_DIR = PROJECT_ROOT / "run_logs"
+# Base paths - auto-detect project root or use environment variable
+def get_project_root() -> Path:
+    """Auto-detect project root from environment or file location."""
+    env_root = os.getenv("SCRAPER_PROJECT_ROOT")
+    if env_root:
+        return Path(env_root)
+    
+    # Fallback: detect from this file's location (scraper/config/settings.py -> project root)
+    current_dir = Path(__file__).resolve().parent.parent.parent
+    return current_dir
+
+PROJECT_ROOT = get_project_root()
+OUTPUT_DIR = PROJECT_ROOT / "scraper" / "output"
+RUN_LOGS_DIR = PROJECT_ROOT / "scraper" / "run_logs"
+
+# Ensure directories exist
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+RUN_LOGS_DIR.mkdir(parents=True, exist_ok=True)
 
 # Site configurations
 SITES_CONFIG = {

@@ -63,7 +63,7 @@ def generate_content_hash(record: Dict[str, Any], exclude_fields: Optional[Set[s
         SHA256 hash of record content
     """
     if exclude_fields is None:
-        exclude_fields = {"last_verified_date", "scraped_date", "run_id", "_metadata"}
+        exclude_fields = {"last_verified_date", "scraped_date", "run_id", "_metadata", "_scraped_run_id", "_scraped_at", "_classification", "_changes", "_changed_fields"}
     
     # Create a copy without excluded fields
     filtered = {k: v for k, v in record.items() if k not in exclude_fields}
@@ -123,7 +123,7 @@ def compare_records(
         List of RecordChange objects
     """
     if exclude_fields is None:
-        exclude_fields = {"last_verified_date", "scraped_date", "run_id", "_metadata"}
+        exclude_fields = {"last_verified_date", "scraped_date", "run_id", "_metadata", "_scraped_run_id", "_scraped_at", "_classification", "_changes", "_changed_fields"}
     
     if ignore_fields:
         exclude_fields = exclude_fields.union(ignore_fields)

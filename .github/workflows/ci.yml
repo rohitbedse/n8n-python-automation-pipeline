@@ -1,0 +1,151 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+env:
+  PYTHONPATH: ${{ github.workspace }}
+  SCRAPER_LOG_LEVEL: DEBUG
+
+jobs:
+  lint-and-typecheck:
+    name: Lint & Type Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          pip install -r scraper/requirements.txt
+          pip install ruff mypy pytest pytest-mock
+
+      - name: Run Ruff (linting)
+        run: ruff check scraper/
+
+      - name: Run MyPy (type checking)
+        run: mypy scraper/ --ignore-missing-imports
+
+  test:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          pip install -r scraper/requirements.txt
+          pip install pytest pytest-mock requests-mock
+
+      - name: Run tests
+        run: |
+          cd ${{ github.workspace }}
+          PYTHONPATH=. python -m pytest scraper/tests/ -v --tb=short
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v4
+        if: always()
+        with:
+          files: ./coverage.xml
+          fail_ci_if_error: false
+
+  docker-build:
+    name: Docker Build
+    runs-on: ubuntu-latest
+    needs: [lint-and-typecheck, test]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build n8n image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: Dockerfile
+          push: false
+          tags: n8n-project-scraper:latest
+          load: true
+
+  validate-workflow:
+    name: Validate n8n Workflows
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate workflow JSON syntax
+        run: |
+          python -m json.tool n8n/workflow_local_python_pipeline.json > /dev/null
+          python -m json.tool n8n/workflow_test_integration.json > /dev/null
+          echo "Workflows are valid JSON"
+
+      - name: Check required nodes exist
+        run: |
+          python << 'EOF'
+          import json
+          
+          with open('n8n/workflow_local_python_pipeline.json') as f:
+              wf = json.load(f)
+          
+          node_names = [n['name'] for n in wf['nodes']]
+          required = [
+              'Daily Schedule (2 AM)',
+              'Check Trigger Server Health',
+              'Server Healthy?',
+              'Trigger Python Pipeline',
+              'Trigger Failed',
+              'Wait 10s',
+              'Poll Pipeline Completion',
+              'Pipeline Done?',
+              'Workflow Success',
+              'Server Unhealthy',
+          ]
+          
+          for req in required:
+              assert req in node_names, f"Missing required node: {req}"
+          
+          print("All required nodes present")
+          EOF
+
+  deploy-check:
+    name: Deploy Readiness
+    runs-on: ubuntu-latest
+    needs: [lint-and-typecheck, test, docker-build, validate-workflow]
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify .env.example exists
+        run: test -f .env.example && echo ".env.example exists"
+
+      - name: Verify no hardcoded secrets
+        run: |
+          ! grep -r "changeme123" --include="*.py" --include="*.json" --include="*.yml" . || (echo "Found hardcoded secrets!" && exit 1)
+          ! grep -r "password.*=" --include="*.py" --include="*.json" --include="*.yml" . || (echo "Found potential passwords!" && exit 1)
+          echo "No hardcoded secrets found"
+
+      - name: Summary
+        run: |
+          echo "✅ All checks passed - ready for deployment"
+          echo "Run locally: docker compose up -d n8n"
+          echo "Then: cd scraper && python trigger_server.py"

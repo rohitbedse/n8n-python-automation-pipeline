@@ -1,3 +1,22 @@
+# =============================================================================
+# Deployment Models:
+# =============================================================================
+# MODEL 1 (Default): n8n in Docker + Python on Windows Host
+#   - n8n runs in Docker (this service)
+#   - Python pipeline runs on Windows host via trigger_server.py
+#   - n8n calls host.docker.internal:8765 to trigger Python pipeline
+#   - Run: docker compose up -d n8n
+#   - Then on Windows host: cd scraper && python trigger_server.py
+#
+# MODEL 2 (Fully Containerized): n8n + Python both in Docker
+#   - Both n8n and Python run in Docker containers
+#   - Uses docker-compose.override.yml (copy from docker-compose.override.yml.example)
+#   - n8n calls scraper-python:8765 to trigger pipeline
+#   - Run: docker compose -f docker-compose.yml -f docker-compose.override.yml up -d
+#
+# Choose ONE model. Do not run both simultaneously.
+# =============================================================================
+
 services:
 
   n8n:
@@ -5,10 +24,9 @@ services:
     container_name: n8n-automation
     ports:
       - "5678:5678"
+    env_file:
+      - .env
     environment:
-      - N8N_BASIC_AUTH_ACTIVE=true
-      - N8N_BASIC_AUTH_USER=admin
-      - N8N_BASIC_AUTH_PASSWORD=changeme123
       - N8N_HOST=localhost
       - N8N_PORT=5678
       - N8N_PROTOCOL=http
@@ -21,15 +39,22 @@ services:
       - ./scraper:/data/scraper
     restart: unless-stopped
 
+  # SCRAPER CONTAINER (Model 2: Fully Containerized)
+  # Only used when using docker-compose.override.yml
+  # See docker-compose.override.yml.example
   scraper:
     build:
       context: .
       dockerfile: Dockerfile
     container_name: scraper-python
+    env_file:
+      - .env
     volumes:
       - .:/project
     working_dir: /project/scraper
     command: python run_pipeline_new.py
+    profiles:
+      - containerized
 
 volumes:
   n8n_data:

@@ -24,7 +24,11 @@
       "parameters": {
         "url": "http://host.docker.internal:8765/health",
         "method": "GET",
-        "options": {}
+        "options": {
+          "headers": {
+            "X-API-Key": "={{ $env.SCRAPER_TRIGGER_API_KEY || '' }}"
+          }
+        }
       },
       "id": "check-health",
       "name": "Check Trigger Server Health",
@@ -55,7 +59,11 @@
         "url": "http://host.docker.internal:8765/trigger",
         "method": "POST",
         "jsonParameters": true,
-        "options": {},
+        "options": {
+          "headers": {
+            "X-API-Key": "={{ $env.SCRAPER_TRIGGER_API_KEY || '' }}"
+          }
+        },
         "bodyParametersJson": "{\n  \"script\": \"run_pipeline_new.py\",\n  \"force\": false\n}"
       },
       "id": "trigger-pipeline",
@@ -79,7 +87,11 @@
       "parameters": {
         "url": "http://host.docker.internal:8765/health",
         "method": "GET",
-        "options": {}
+        "options": {
+          "headers": {
+            "X-API-Key": "={{ $env.SCRAPER_TRIGGER_API_KEY || '' }}"
+          }
+        }
       },
       "id": "poll-completion",
       "name": "Poll Pipeline Completion",

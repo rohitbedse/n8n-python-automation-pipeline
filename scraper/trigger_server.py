@@ -14,15 +14,31 @@ import subprocess
 import sys
 import threading
 import time
+import hmac
+import hashlib
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from pathlib import Path
 from urllib.parse import urlparse, parse_qs
 
-PROJECT_DIR = Path(r"C:\n8n-project\scraper")
+def get_project_root() -> Path:
+    """Auto-detect project root from environment or file location."""
+    env_root = os.getenv("SCRAPER_PROJECT_ROOT")
+    if env_root:
+        return Path(env_root)
+    
+    # Fallback: detect from this file's location
+    current_dir = Path(__file__).resolve().parent.parent
+    return current_dir
+
+PROJECT_ROOT = get_project_root()
+PROJECT_DIR = PROJECT_ROOT / "scraper"
 PIPELINE_SCRIPT = "run_pipeline_new.py"
 VENV_PYTHON = PROJECT_DIR / ".venv" / "Scripts" / "python.exe"
 HOST = "0.0.0.0"
 PORT = 8765
+
+# Authentication - simple API key (set via SCRAPER_TRIGGER_API_KEY env var)
+TRIGGER_API_KEY = os.getenv("SCRAPER_TRIGGER_API_KEY", "").strip()
 
 # Track running processes to prevent duplicates
 running_lock = threading.Lock()
@@ -82,7 +98,34 @@ class TriggerHandler(BaseHTTPRequestHandler):
         # Suppress default log messages
         pass
     
+    def _check_auth(self) -> bool:
+        """Check API key authentication. Returns True if authenticated or no key configured."""
+        if not TRIGGER_API_KEY:
+            return True  # No auth required if not configured
+        
+        # Check X-API-Key header
+        api_key = self.headers.get('X-API-Key', '').strip()
+        if not api_key:
+            return False
+        
+        # Constant-time comparison to prevent timing attacks
+        return hmac.compare_digest(api_key, TRIGGER_API_KEY)
+    
+    def _send_auth_error(self):
+        self.send_response(401)
+        self.send_header("Content-Type", "application/json")
+        self.end_headers()
+        self.wfile.write(json.dumps({
+            "error": "Unauthorized",
+            "message": "Invalid or missing API key. Provide X-API-Key header."
+        }).encode())
+    
     def do_GET(self):
+        # Check authentication
+        if not self._check_auth():
+            self._send_auth_error()
+            return
+            
         parsed = urlparse(self.path)
         path = parsed.path.rstrip('/')
         if path == "/health":
@@ -100,6 +143,11 @@ class TriggerHandler(BaseHTTPRequestHandler):
         self.end_headers()
     
     def do_POST(self):
+        # Check authentication
+        if not self._check_auth():
+            self._send_auth_error()
+            return
+            
         parsed = urlparse(self.path)
         if parsed.path == "/trigger":
             content_length = int(self.headers.get('Content-Length', 0))

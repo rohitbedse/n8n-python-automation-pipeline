@@ -1,6 +1,6 @@
 # 🎓 Career Data Aggregation Pipeline
 
-A modular, fault-tolerant Python pipeline that scrapes **2,000+ career and education records** from three Indian education platforms — **SWAYAM**, **Mindler**, and **Careers360** — with automated scheduling via **n8n** running in Docker.
+A modular, fault-tolerant Python pipeline that scrapes **2,000+ career and education records** from two Indian education platforms — **SWAYAM** and **Mindler** — with automated scheduling via **n8n** running in Docker.
 
 Built for reliability: every run validates data against schemas, deduplicates records, classifies changes as NEW / UPDATED / UNCHANGED, and saves failed records separately with the reason for failure — so bad data never silently enters the main output.
 
@@ -24,11 +24,11 @@ Built for reliability: every run validates data against schemas, deduplicates re
 │  │  Orchestrates all scrapers sequentially with run logging           │  │
 │  └───────┬────────────────────┬────────────────────┬──────────────────┘  │
 │          │                    │                    │                      │
-│          ▼                    ▼                    ▼                      │
+│          ▼                    ▼                    │                      │
 │  ┌──────────────┐   ┌──────────────┐   ┌───────────────────┐           │
-│  │   Mindler     │   │   SWAYAM     │   │   Careers360      │           │
-│  │   REST API    │   │   GraphQL    │   │   HTML Scraping   │           │
-│  │   44 records  │   │   1958 recs  │   │   College data    │           │
+│  │   Mindler     │   │   SWAYAM     │   │   (Future)        │           │
+│  │   REST API    │   │   GraphQL    │   │   Careers360      │           │
+│  │   44 records  │   │   2,226 recs │   │   HTML Scraping   │           │
 │  └──────┬───────┘   └──────┬───────┘   └────────┬──────────┘           │
 │         │                  │                     │                       │
 │         └──────────────────┴─────────────────────┘                       │
@@ -53,7 +53,6 @@ Built for reliability: every run validates data against schemas, deduplicates re
 │              │         output/              │                            │
 │              │  mindler_career_library.json  │                            │
 │              │  swayam_courses.json          │                            │
-│              │  careers360_data.json         │                            │
 │              │  *_failed_records.json        │                            │
 │              └─────────────────────────────┘                            │
 │              ┌─────────────────────────────┐                            │
@@ -72,8 +71,9 @@ Built for reliability: every run validates data against schemas, deduplicates re
 | Source | Method | Records | Data |
 |--------|--------|---------|------|
 | **Mindler** | REST API | 44 career domains | Career paths, entrance exams, colleges, eligibility, pros/cons |
-| **SWAYAM** | GraphQL API | 1,958 courses | Course details, instructors, syllabi, enrollment info, ratings |
-| **Careers360** | HTML scraping | Colleges across 12 categories | College profiles, locations, fees, ratings, entrance exams |
+| **SWAYAM** | GraphQL API | 2,226 courses | Course details, instructors, syllabi, enrollment info, ratings |
+
+> **Note**: Careers360 scraper is planned but not yet implemented. Current production scrapers: Mindler (REST API) and SWAYAM (GraphQL API).
 
 ### Reliability & Error Handling
 - **Retry with exponential backoff** — configurable base/max delay with jitter to avoid thundering herd
@@ -111,6 +111,7 @@ n8n-project/
 ├── docker-compose.yml              # n8n container config
 ├── Dockerfile
 ├── README.md
+├── .env.example                    # Environment variable template
 ├── n8n/                            # n8n workflow definitions
 │   ├── workflow_test_integration.json
 │   └── workflow_local_python_pipeline.json
@@ -135,9 +136,8 @@ n8n-project/
     ├── scrapers/                   # Site-specific modules
     │   ├── __init__.py
     │   ├── base.py                 # Abstract base class + factory
-    │   ├── mindler.py              # Mindler Career Library (REST API)
-    │   ├── swayam.py               # SWAYAM Courses (GraphQL)
-    │   └── careers360.py           # Careers360 Colleges (HTML scraping)
+    │   ├── mindler_api.py          # Mindler Career Library (REST API)
+    │   ├── swayam_graphql.py       # SWAYAM Courses (GraphQL)
     │
     ├── run_pipeline_new.py         # Main pipeline runner (modular)
     ├── run_pipeline.py             # Legacy runner (subprocess-based)
@@ -147,7 +147,6 @@ n8n-project/
     ├── output/                     # Scraped data (JSON)
     │   ├── mindler_career_library.json
     │   ├── swayam_courses.json
-    │   ├── careers360_data.json
     │   └── *_failed_records.json
     │
     └── run_logs/                   # Timestamped run summaries
@@ -277,12 +276,10 @@ Required fields and deduplication keys are configured per site:
 "required_fields": {
     "mindler": ["subject_id", "subject_title"],
     "swayam":  ["course_id", "course_name", "course_url"],
-    "careers360": ["id", "title", "url"],
 },
 "duplicate_check_fields": {
     "mindler": ["subject_id"],
     "swayam":  ["course_id", "course_url"],
-    "careers360": ["id", "url"],
 }
 ```
 

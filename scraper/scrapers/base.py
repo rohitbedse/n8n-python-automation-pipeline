@@ -249,10 +249,14 @@ class BaseScraper(ABC):
             self.logger.info("Loading existing records and classifying changes...")
             existing_records = load_existing_records(self.config.output_file)
             
+            # Exclude internal pipeline metadata from change detection
+            exclude_fields = {"_scraped_run_id", "_scraped_at", "_classification", "_changes", "_changed_fields"}
+            
             classification = classify_records(
                 deduplicated,
                 existing_records,
                 key_fields,
+                exclude_fields=exclude_fields,
             )
             
             # Step 6: Merge records (using the already-computed classification)

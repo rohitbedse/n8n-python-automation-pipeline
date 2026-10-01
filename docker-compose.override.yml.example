@@ -1,0 +1,33 @@
+# =============================================================================
+# Docker Compose Override - Fully Containerized Model (Model 2)
+# =============================================================================
+# Copy this file to docker-compose.override.yml to use the fully containerized model.
+# 
+# In this model:
+# - Both n8n and Python scraper run in Docker containers
+# - n8n calls scraper-python:8765 (internal Docker network) to trigger pipeline
+# - No Windows host trigger_server.py needed
+# 
+# Usage:
+#   cp docker-compose.override.yml.example docker-compose.override.yml
+#   docker compose up -d
+# =============================================================================
+
+services:
+  n8n:
+    # Override n8n to use internal network for trigger
+    environment:
+      - TRIGGER_SERVER_URL=http://scraper-python:8765
+
+  scraper:
+    # Enable trigger server inside container
+    command: python trigger_server.py
+    ports:
+      - "8765:8765"
+    # Override for containerized deployment
+    environment:
+      - SCRAPER_PROJECT_ROOT=/project
+      - PYTHONPATH=/project
+
+# Remove the 'profiles' restriction so scraper starts automatically
+# (profiles only apply to base docker-compose.yml)
